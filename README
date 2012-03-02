@@ -1,0 +1,17 @@
+-------------------------------------------------------------------------------
+QRConfig 0.1
+-------------------------------------------------------------------------------
+  Alain Perez <alain21p@hotmail.com>
+  http://alaintxu.blogspot.com
+
+DESCRIPTION
+
+  Android app that changes configuration from QR codes.
+
+DEPENDENCIES
+
+  * Barcode-scanner (ZXing Team).
+
+LICENSE
+
+  QRConfig is distributed under the GPL Version 2.
