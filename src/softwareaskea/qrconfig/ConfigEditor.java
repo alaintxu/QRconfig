@@ -55,4 +55,14 @@ public class ConfigEditor {
     		qrca.notify(R.string.wrongQr,Toast.LENGTH_LONG);
     	}
     }
+    
+    public static String getGoogleChartQRLink(int width, int height, String data){
+    	String	link	=	"https://chart.googleapis.com/chart?chs="+width+"x"+height+"&cht=qr&chl="+data;
+    	return link;
+    }
+    public static String getGoogleChartQRLink(String data){
+    	String	link	=	getGoogleChartQRLink(256,256,data);
+    	return link;
+    }
+
 }

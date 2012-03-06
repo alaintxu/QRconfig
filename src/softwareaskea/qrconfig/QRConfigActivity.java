@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.Toast;
 
 public class QRConfigActivity extends Activity {
@@ -27,41 +26,38 @@ public class QRConfigActivity extends Activity {
         this.buttonListener	=	new ButtonListener(this);
         setContentView(R.layout.main);
         
-        // Capture our button from layout
-        Button blueOn = (Button)findViewById(R.id.blueOn);
-        Button blueOff = (Button)findViewById(R.id.blueOff);
-        Button wifiOn = (Button)findViewById(R.id.wifiOn);
-        Button wifiOff = (Button)findViewById(R.id.wifiOff);
-        Button scanQr = (Button)findViewById(R.id.scanQr);
-        // Register the onClick listener with the implementation above
-        blueOn.setOnClickListener(buttonListener);
-        blueOff.setOnClickListener(buttonListener);
-        wifiOn.setOnClickListener(buttonListener);
-        wifiOff.setOnClickListener(buttonListener);
-        scanQr.setOnClickListener(buttonListener);
-        
         // setup action bar for tabs
-        /*ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setDisplayShowTitleEnabled(false);
-
+        //actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayOptions(0,ActionBar.DISPLAY_SHOW_TITLE);
+        TabListener<HomeFragment>		homeTabListener = new TabListener<HomeFragment>(this,"home",HomeFragment.class);
+        TabListener<PresetsFragment>	presetsTabListener = new TabListener<PresetsFragment>(this,"presets",PresetsFragment.class);
+        TabListener<ManualFragment>		manualTabListener = new TabListener<ManualFragment>(this,"home",ManualFragment.class);
         Tab tab = actionBar.newTab()
                 .setText(R.string.home)
-                .setTabListener(new TabListener<HomeFragment>(
-                        this, "home", HomeFragment.class));
+                .setTabListener(homeTabListener);
         actionBar.addTab(tab);
 
         tab = actionBar.newTab()
             .setText(R.string.presets)
-            .setTabListener(new TabListener<PresetsFragment>(
-                    this, "presets", PresetsFragment.class));
+            .setTabListener(presetsTabListener);
         actionBar.addTab(tab);
 
         tab = actionBar.newTab()
-            .setText(R.string.presets)
-            .setTabListener(new TabListener<ManualFragment>(
-                    this, "manual", ManualFragment.class));
-        actionBar.addTab(tab);*/
+            .setText(R.string.manual)
+            .setTabListener(manualTabListener);
+        actionBar.addTab(tab);
+        
+        if(savedInstanceState != null){
+        	actionBar.setSelectedNavigationItem(savedInstanceState.getInt("tab",0));
+        }
+    }
+    
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+    	super.onSaveInstanceState(outState);
+    	outState.putInt("tab",getActionBar().getSelectedNavigationIndex());
     }
     
     //ActionBar
@@ -75,10 +71,17 @@ public class QRConfigActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+        case android.R.id.home:
+            // app icon in action bar clicked; go home
+            Intent intent = new Intent(this, QRConfigActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return true;
             case R.id.scanQr:
                 scanQrCode();
                 return true;
             case R.id.moreOptions:
+            	//Settings
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -124,5 +127,14 @@ public class QRConfigActivity extends Activity {
     	Toast toast = Toast.makeText(context, text, duration);
     	toast.show();
     }
+    
+    public void quit(){
+    	this.finish();
+    }
+
+	public ButtonListener getButtonListener() {
+		// TODO Auto-generated method stub
+		return buttonListener;
+	}
 
 }

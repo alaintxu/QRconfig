@@ -8,6 +8,12 @@
 package softwareaskea.qrconfig;
 
 public final class R {
+    public static final class animator {
+        public static final int fragment_slide_left_enter=0x7f040000;
+        public static final int fragment_slide_left_exit=0x7f040001;
+        public static final int fragment_slide_right_enter=0x7f040002;
+        public static final int fragment_slide_right_exit=0x7f040003;
+    }
     public static final class attr {
     }
     public static final class drawable {
@@ -21,21 +27,19 @@ public final class R {
         public static final int logo=0x7f020007;
     }
     public static final class id {
-        public static final int blueOff=0x7f060003;
-        public static final int blueOn=0x7f060002;
-        public static final int home=0x7f06000b;
-        public static final int linearLayout1=0x7f060001;
-        public static final int linearLayout2=0x7f060005;
-        public static final int manual=0x7f06000d;
-        public static final int moreOptions=0x7f06000e;
-        public static final int presets=0x7f06000c;
-        public static final int scanQr=0x7f060008;
-        public static final int switch1=0x7f060009;
-        public static final int switch2=0x7f06000a;
-        public static final int textView1=0x7f060004;
-        public static final int textView2=0x7f060000;
-        public static final int wifiOff=0x7f060007;
-        public static final int wifiOn=0x7f060006;
+        public static final int blueOff=0x7f070005;
+        public static final int blueOn=0x7f070004;
+        public static final int button1=0x7f07000a;
+        public static final int homeScanQr=0x7f070000;
+        public static final int linearLayout1=0x7f070003;
+        public static final int linearLayout2=0x7f070007;
+        public static final int mainFL=0x7f070001;
+        public static final int moreOptions=0x7f07000c;
+        public static final int scanQr=0x7f07000b;
+        public static final int textView1=0x7f070006;
+        public static final int textView2=0x7f070002;
+        public static final int wifiOff=0x7f070009;
+        public static final int wifiOn=0x7f070008;
     }
     public static final class layout {
         public static final int home_fragment=0x7f030000;
@@ -44,28 +48,28 @@ public final class R {
         public static final int presets_fragment=0x7f030003;
     }
     public static final class menu {
-        public static final int tabs=0x7f050000;
+        public static final int tabs=0x7f060000;
     }
     public static final class string {
-        public static final int app_name=0x7f040001;
-        public static final int blueOff=0x7f04000c;
-        public static final int blueOffButtonText=0x7f040004;
-        public static final int blueOn=0x7f04000b;
-        public static final int blueOnButtonText=0x7f040003;
-        public static final int bluetooth=0x7f040002;
-        public static final int disable=0x7f040007;
-        public static final int enable=0x7f040006;
-        public static final int hello=0x7f040000;
-        public static final int help=0x7f04000f;
-        public static final int home=0x7f040011;
-        public static final int manual=0x7f040013;
-        public static final int moreOptions=0x7f040010;
-        public static final int nothing2change=0x7f04000a;
-        public static final int presets=0x7f040012;
-        public static final int scanQr=0x7f040008;
-        public static final int wifi=0x7f040005;
-        public static final int wifiOff=0x7f04000e;
-        public static final int wifiOn=0x7f04000d;
-        public static final int wrongQr=0x7f040009;
+        public static final int app_name=0x7f050001;
+        public static final int blueOff=0x7f05000c;
+        public static final int blueOffButtonText=0x7f050004;
+        public static final int blueOn=0x7f05000b;
+        public static final int blueOnButtonText=0x7f050003;
+        public static final int bluetooth=0x7f050002;
+        public static final int disable=0x7f050007;
+        public static final int enable=0x7f050006;
+        public static final int hello=0x7f050000;
+        public static final int help=0x7f05000f;
+        public static final int home=0x7f050011;
+        public static final int manual=0x7f050013;
+        public static final int moreOptions=0x7f050010;
+        public static final int nothing2change=0x7f05000a;
+        public static final int presets=0x7f050012;
+        public static final int scanQr=0x7f050008;
+        public static final int wifi=0x7f050005;
+        public static final int wifiOff=0x7f05000e;
+        public static final int wifiOn=0x7f05000d;
+        public static final int wrongQr=0x7f050009;
     }
 }
