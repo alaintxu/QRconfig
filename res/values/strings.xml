@@ -21,5 +21,6 @@
     <string name="home">Home</string>
     <string name="presets">Presets</string>
     <string name="manual">Manual</string>
+    <string name="exit">Exit</string>
 
 </resources>

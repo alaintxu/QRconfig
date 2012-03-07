@@ -17,10 +17,10 @@ public class ConfigEditor {
     public boolean bluetoothAldatu (String aktibatu){
     	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     	if (aktibatu.equals("On") && !mBluetoothAdapter.isEnabled()){
-    		qrca.notify(R.string.blueOn,Toast.LENGTH_LONG);
+    		Toast.makeText(qrca.getApplicationContext(), R.string.blueOn, Toast.LENGTH_LONG);
     		return mBluetoothAdapter.enable();
     	}else if(aktibatu.equals("Off") && mBluetoothAdapter.isEnabled()){
-    		qrca.notify(R.string.blueOff,Toast.LENGTH_LONG);
+    		Toast.makeText(qrca.getApplicationContext(), R.string.blueOff, Toast.LENGTH_LONG);
     		return mBluetoothAdapter.disable();
     	}
     	return false;
@@ -30,10 +30,10 @@ public class ConfigEditor {
     	WifiManager wifiManager = (WifiManager) qrca.getSystemService(Context.WIFI_SERVICE);  
     	if(aktibatu.equals("On") && !wifiManager.isWifiEnabled()){  
     	    wifiManager.setWifiEnabled(true);
-    	    qrca.notify(R.string.wifiOn,Toast.LENGTH_LONG);
+    	    Toast.makeText(qrca.getApplicationContext(), R.string.wifiOn, Toast.LENGTH_LONG);
     	}else if(aktibatu.equals("Off") && wifiManager.isWifiEnabled()){  
     	    wifiManager.setWifiEnabled(false);
-    	    qrca.notify(R.string.wifiOff,Toast.LENGTH_LONG);
+    	    Toast.makeText(qrca.getApplicationContext(), R.string.wifiOff, Toast.LENGTH_LONG);
     	}
     	return false;
     }
@@ -52,7 +52,7 @@ public class ConfigEditor {
     		    	  wifiAldatu(subsplit[1]);
     		}
     	}else{
-    		qrca.notify(R.string.wrongQr,Toast.LENGTH_LONG);
+    		Toast.makeText(qrca.getApplicationContext(), R.string.wrongQr, Toast.LENGTH_LONG);
     	}
     }
     
