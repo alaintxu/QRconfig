@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 
 public class ManualFragment extends Fragment {
 	private	QRConfigActivity	qrca		=	null;
@@ -28,17 +29,11 @@ public class ManualFragment extends Fragment {
         qrca	=	(QRConfigActivity) this.getActivity();
         buttonListener	=	qrca.getButtonListener();
 		
-        // Capture our button from layout
-        Button blueOn = (Button)qrca.findViewById(R.id.blueOn);
-        Button blueOff = (Button)qrca.findViewById(R.id.blueOff);
-        Button wifiOn = (Button)qrca.findViewById(R.id.wifiOn);
-        Button wifiOff = (Button)qrca.findViewById(R.id.wifiOff);
+        /*Switch btSwitch		=	(Switch)qrca.findViewById(R.id.btSwitch);
+        Switch wifiSwitch	=	(Switch)qrca.findViewById(R.id.wifiSwitch);
         
-        // Register the onClick listener with the implementation above
-    	blueOn.setOnClickListener(buttonListener);
-    	blueOff.setOnClickListener(buttonListener);
-    	wifiOn.setOnClickListener(buttonListener);
-    	wifiOff.setOnClickListener(buttonListener);
+        btSwitch.setOnClickListener(buttonListener);
+        wifiSwitch.setOnClickListener(buttonListener);*/
 	}
 	
     @Override

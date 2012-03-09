@@ -3,14 +3,21 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+
+    <!-- Switch
+        android:id="@+id/btSwitch"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/bluetooth"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_gravity="right"
+        android:text="@string/bluetooth" />
+    
+    <Switch
+        android:id="@+id/wifiSwitch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="@string/wifi" /-->
+    
 
     <LinearLayout
         android:id="@+id/manualLinearLayout2"

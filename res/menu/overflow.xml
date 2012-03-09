@@ -8,8 +8,4 @@
           android:icon="@drawable/ic_menu_close_clear_cancel"
           android:title="@string/exit"
           android:showAsAction="ifRoom|withText|collapseActionView"/>
-    <!-- item android:id="@+id/moreOptions"
-          android:icon="@drawable/ic_menu_moreoverflow_normal_holo_dark"
-          android:title="@string/moreOptions"
-          android:showAsAction="ifRoom"/-->
 </menu>

@@ -6,16 +6,19 @@ import android.net.wifi.WifiManager;
 import android.widget.Toast;
 
 public class ConfigEditor {
-	private QRConfigActivity qrca;
+	private QRConfigActivity	qrca;
+	private BluetoothAdapter	mBluetoothAdapter;
+	private WifiManager			mWifiManager;
 	
 	public ConfigEditor(){}
 	
 	public ConfigEditor(QRConfigActivity qrca){
-		this.qrca	=	qrca;
+		this.qrca			=	qrca;
+		mBluetoothAdapter	=	BluetoothAdapter.getDefaultAdapter();
+		mWifiManager		=	(WifiManager) qrca.getSystemService(Context.WIFI_SERVICE);
 	}
 	
     public boolean bluetoothAldatu (String aktibatu){
-    	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     	if (aktibatu.equals("On") && !mBluetoothAdapter.isEnabled()){
     		Toast.makeText(qrca.getApplicationContext(), R.string.blueOn, Toast.LENGTH_LONG);
     		return mBluetoothAdapter.enable();
@@ -27,12 +30,11 @@ public class ConfigEditor {
     }
     
     public boolean wifiAldatu (String aktibatu){
-    	WifiManager wifiManager = (WifiManager) qrca.getSystemService(Context.WIFI_SERVICE);  
-    	if(aktibatu.equals("On") && !wifiManager.isWifiEnabled()){  
-    	    wifiManager.setWifiEnabled(true);
+    	if(aktibatu.equals("On") && !mWifiManager.isWifiEnabled()){  
+    	    mWifiManager.setWifiEnabled(true);
     	    Toast.makeText(qrca.getApplicationContext(), R.string.wifiOn, Toast.LENGTH_LONG);
-    	}else if(aktibatu.equals("Off") && wifiManager.isWifiEnabled()){  
-    	    wifiManager.setWifiEnabled(false);
+    	}else if(aktibatu.equals("Off") && mWifiManager.isWifiEnabled()){  
+    	    mWifiManager.setWifiEnabled(false);
     	    Toast.makeText(qrca.getApplicationContext(), R.string.wifiOff, Toast.LENGTH_LONG);
     	}
     	return false;
@@ -65,4 +67,11 @@ public class ConfigEditor {
     	return link;
     }
 
+    public Boolean isWifiEnabled(){
+    	return mWifiManager.isWifiEnabled();
+    }
+    
+    public Boolean isBluetoothEnabled(){
+    	return mBluetoothAdapter.isEnabled();
+    }
 }
