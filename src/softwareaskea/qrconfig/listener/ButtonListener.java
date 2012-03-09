@@ -1,21 +1,17 @@
 package softwareaskea.qrconfig.listener;
 
 import softwareaskea.qrconfig.ConfigEditor;
-import softwareaskea.qrconfig.QRConfigActivity;
 import softwareaskea.qrconfig.R;
 import android.view.View;
-import android.widget.Switch;
 
 public class ButtonListener implements android.view.View.OnClickListener{
 
-	private QRConfigActivity	qrca;
 	private ConfigEditor		configEditor;
 	
 	public ButtonListener(){}
 	
-	public ButtonListener(QRConfigActivity qrca){
-		this.qrca			=	qrca;
-		this.configEditor	=	qrca.getConfigEditor();
+	public ButtonListener(ConfigEditor configEditor){
+		this.configEditor	=	configEditor;
 	}
 
     public void onClick(View v) {
@@ -42,7 +38,7 @@ public class ButtonListener implements android.view.View.OnClickListener{
     		Boolean selection	=	bSwitch.hasSelection();
     		selection	=	false;
     	}else */if(id==scanQr || id==homeScanQr)
-    		qrca.scanQrCode();
+    		configEditor.scanQrCode();
     }
 
 }

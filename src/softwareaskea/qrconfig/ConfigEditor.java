@@ -1,41 +1,45 @@
 package softwareaskea.qrconfig;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.widget.Toast;
 
 public class ConfigEditor {
-	private QRConfigActivity	qrca;
 	private BluetoothAdapter	mBluetoothAdapter;
 	private WifiManager			mWifiManager;
+	private Context				context;
+	private Activity			activity;
 	
 	public ConfigEditor(){}
 	
-	public ConfigEditor(QRConfigActivity qrca){
-		this.qrca			=	qrca;
+	public ConfigEditor(Activity activity){
 		mBluetoothAdapter	=	BluetoothAdapter.getDefaultAdapter();
-		mWifiManager		=	(WifiManager) qrca.getSystemService(Context.WIFI_SERVICE);
+		mWifiManager		=	(WifiManager) activity.getSystemService(Context.WIFI_SERVICE);
+		context				=	activity.getApplicationContext();
+		this.activity		=	activity;
 	}
 	
     public boolean bluetoothAldatu (String aktibatu){
-    	if (aktibatu.equals("On") && !mBluetoothAdapter.isEnabled()){
-    		Toast.makeText(qrca.getApplicationContext(), R.string.blueOn, Toast.LENGTH_LONG);
+    	if (aktibatu.equals("1") && !mBluetoothAdapter.isEnabled()){
+    		Toast.makeText(context, R.string.blueOn, Toast.LENGTH_LONG);
     		return mBluetoothAdapter.enable();
-    	}else if(aktibatu.equals("Off") && mBluetoothAdapter.isEnabled()){
-    		Toast.makeText(qrca.getApplicationContext(), R.string.blueOff, Toast.LENGTH_LONG);
+    	}else if(aktibatu.equals("0") && mBluetoothAdapter.isEnabled()){
+    		Toast.makeText(context, R.string.blueOff, Toast.LENGTH_LONG);
     		return mBluetoothAdapter.disable();
     	}
     	return false;
     }
     
     public boolean wifiAldatu (String aktibatu){
-    	if(aktibatu.equals("On") && !mWifiManager.isWifiEnabled()){  
+    	if(aktibatu.equals("1") && !mWifiManager.isWifiEnabled()){  
     	    mWifiManager.setWifiEnabled(true);
-    	    Toast.makeText(qrca.getApplicationContext(), R.string.wifiOn, Toast.LENGTH_LONG);
-    	}else if(aktibatu.equals("Off") && mWifiManager.isWifiEnabled()){  
+    	    Toast.makeText(context, R.string.wifiOn, Toast.LENGTH_LONG);
+    	}else if(aktibatu.equals("0") && mWifiManager.isWifiEnabled()){  
     	    mWifiManager.setWifiEnabled(false);
-    	    Toast.makeText(qrca.getApplicationContext(), R.string.wifiOff, Toast.LENGTH_LONG);
+    	    Toast.makeText(context, R.string.wifiOff, Toast.LENGTH_LONG);
     	}
     	return false;
     }
@@ -54,7 +58,7 @@ public class ConfigEditor {
     		    	  wifiAldatu(subsplit[1]);
     		}
     	}else{
-    		Toast.makeText(qrca.getApplicationContext(), R.string.wrongQr, Toast.LENGTH_LONG);
+    		Toast.makeText(context, R.string.wrongQr, Toast.LENGTH_LONG);
     	}
     }
     
@@ -73,5 +77,36 @@ public class ConfigEditor {
     
     public Boolean isBluetoothEnabled(){
     	return mBluetoothAdapter.isEnabled();
+    }
+    
+
+    
+    /**
+     * Call Barcode Scanner Intent to manage QR codes
+     */
+    public void scanQrCode(){
+        Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+        intent.setPackage("com.google.zxing.client.android");
+        intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+        activity.startActivityForResult(intent, 0);
+    }
+    
+    /**
+     * Manage result of QR code scan
+     * @param requestCode	0 if there is any result
+     * @param resultCode	the type of result
+     * @param intent	Barcode Scanner Intent
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == 0) {
+            if (resultCode == activity.RESULT_OK) {
+                String contents = intent.getStringExtra("SCAN_RESULT");
+                String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+                if(format.equals("QR_CODE"))
+                	processQr(contents);
+            } else if (resultCode == activity.RESULT_CANCELED) {
+                // Handle cancel
+            }
+        }
     }
 }

@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
     
-		<receiver android:name=".QRScanWidgetProvider">
+		<receiver android:name=".widget.QRScanWidgetProvider">
 		    <meta-data android:name="android.appwidget.provider"
 		               android:resource="@xml/scan_qr_wprovider" />
 		    <intent-filter>

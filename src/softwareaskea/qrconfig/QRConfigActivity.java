@@ -29,9 +29,9 @@ public class QRConfigActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        this.configEditor	=	new ConfigEditor(this);
-        this.buttonListener	=	new ButtonListener(this);
-        this.databaseManager=	new	DatabaseManager();
+        configEditor	=	new ConfigEditor(this);
+        buttonListener	=	new ButtonListener(configEditor);
+        databaseManager=	new	DatabaseManager();
         setContentView(R.layout.main);
         
         this.initialisePaging();
@@ -71,7 +71,7 @@ public class QRConfigActivity extends FragmentActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.scanQr:
-                scanQrCode();
+                configEditor.scanQrCode();
                 return true;
             case R.id.exit:
             	quit();
@@ -79,16 +79,6 @@ public class QRConfigActivity extends FragmentActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-    
-    /**
-     * Call Barcode Scanner Intent to manage QR codes
-     */
-    public void scanQrCode(){
-        Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-        intent.setPackage("com.google.zxing.client.android");
-        intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-        startActivityForResult(intent, 0);
     }
     
     /**
