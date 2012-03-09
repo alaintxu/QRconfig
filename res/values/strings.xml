@@ -22,5 +22,12 @@
     <string name="presets">Presets</string>
     <string name="manual">Manual</string>
     <string name="exit">Exit</string>
+    
+    <string-array name="page_adapter_pages">
+        <item>Manual</item>
+        <item>Home</item>
+        <item>Presets</item>
+    </string-array>
+    
 
 </resources>

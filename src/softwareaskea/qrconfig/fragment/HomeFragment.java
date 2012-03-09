@@ -9,8 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.support.v4.app.Fragment;
 
-public class HomeFragment extends android.app.Fragment {
+public class HomeFragment extends Fragment {
 	private	QRConfigActivity	qrca		=	null;
 	private	ButtonListener	buttonListener	=	null;
 	

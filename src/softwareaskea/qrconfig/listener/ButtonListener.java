@@ -24,7 +24,7 @@ public class ButtonListener implements android.view.View.OnClickListener{
     	int wifiOnId	=	R.id.wifiOn;
     	int wifiOffId	=	R.id.wifiOff;
     	int scanQr		=	R.id.scanQr;
-    	//int homeScanQr	=	R.id.homeScanQr;
+    	int homeScanQr	=	R.id.homeScanQr;
     	if(id==blueOnId)
     		configEditor.bluetoothAldatu("On");
     	else if(id==blueOffId)
@@ -33,7 +33,7 @@ public class ButtonListener implements android.view.View.OnClickListener{
     		configEditor.wifiAldatu("On");
     	else if(id==wifiOffId)
     		configEditor.wifiAldatu("Off");
-    	else if(id==scanQr/* || id==homeScanQr*/)
+    	else if(id==scanQr || id==homeScanQr)
     		qrca.scanQrCode();
     }
 

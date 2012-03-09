@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainFL"
-    android:layout_height="fill_parent"
-    android:layout_width="fill_parent"
-    android:orientation="horizontal">
-    
-    <!-- fragment	android:id="@+id/homeFragment"
-            	android:layout_width="fill_parent"
-            	android:layout_height="fill_parent"
-            	android:name="softwareaskea.qrconfig.HomeFragment"/>
-    <fragment	android:id="@+id/presetsFragment"
-            	android:layout_width="fill_parent"
-            	android:layout_height="fill_parent"
-            	class="softwareaskea.qrconfig.PresetsFragment"/>
-    <fragment	android:id="@+id/manualFragment"
-            	android:layout_width="fill_parent"
-            	android:layout_height="fill_parent"
-            	class="softwareaskea.qrconfig.ManualFragment"/-->
-    
-
-</LinearLayout>
+<android.support.v4.view.ViewPager
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:id="@+id/viewpager">
+    <android.support.v4.view.PagerTitleStrip
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/pagertitlestrip"
+		android:layout_gravity="top"
+		/>
+</android.support.v4.view.ViewPager>

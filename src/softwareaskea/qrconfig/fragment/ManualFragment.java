@@ -3,7 +3,7 @@ package softwareaskea.qrconfig.fragment;
 import softwareaskea.qrconfig.QRConfigActivity;
 import softwareaskea.qrconfig.R;
 import softwareaskea.qrconfig.listener.ButtonListener;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;

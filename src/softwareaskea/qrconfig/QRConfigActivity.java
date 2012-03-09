@@ -1,22 +1,28 @@
 package softwareaskea.qrconfig;
 
 
+import java.util.List;
+import java.util.Vector;
+
 import softwareaskea.qrconfig.db.*;
 import softwareaskea.qrconfig.fragment.*;
 import softwareaskea.qrconfig.listener.*;
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class QRConfigActivity extends Activity {
-	private ConfigEditor	configEditor	=	null;
-	private ButtonListener	buttonListener	=	null;
-	private DatabaseManager	databaseManager	=	null;
+public class QRConfigActivity extends FragmentActivity {
+	private ConfigEditor	configEditor;
+	private ButtonListener	buttonListener;
+	private DatabaseManager	databaseManager;
+	private PagerAdapter	mPagerAdapter;
+	private ViewPager		pager;
 	
     /** Called when the activity is first created. */
     @Override
@@ -28,36 +34,24 @@ public class QRConfigActivity extends Activity {
         this.databaseManager=	new	DatabaseManager();
         setContentView(R.layout.main);
         
-        // setup action bar for tabs
-        ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setDisplayShowTitleEnabled(false);
-        
-        TabListener<HomeFragment>		homeTabListener = new TabListener<HomeFragment>(this,"home",HomeFragment.class);
-        TabListener<PresetsFragment>	presetsTabListener = new TabListener<PresetsFragment>(this,"presets",PresetsFragment.class);
-        TabListener<ManualFragment>		manualTabListener = new TabListener<ManualFragment>(this,"home",ManualFragment.class);
-        
-        Tab tab = actionBar.newTab()
-                .setText(R.string.home)
-                .setTabListener(homeTabListener);
-        actionBar.addTab(tab);
-
-        tab = actionBar.newTab()
-            .setText(R.string.presets)
-            .setTabListener(presetsTabListener);
-        actionBar.addTab(tab);
-
-        tab = actionBar.newTab()
-            .setText(R.string.manual)
-            .setTabListener(manualTabListener);
-        actionBar.addTab(tab);
-        
-        if(savedInstanceState != null){
-        	actionBar.setSelectedNavigationItem(savedInstanceState.getInt("tab",0));
-        }
+        this.initialisePaging();
     }
     
-    @Override
+    private void initialisePaging() {
+    	List<Fragment>	fragments	=	new	Vector<Fragment>();
+    	fragments.add(Fragment.instantiate(this, ManualFragment.class.getName()));
+    	fragments.add(Fragment.instantiate(this, HomeFragment.class.getName()));
+    	fragments.add(Fragment.instantiate(this, PresetsFragment.class.getName()));
+    	
+    	mPagerAdapter	=	new	QRConfigPagerAdapter(super.getSupportFragmentManager(),fragments,getResources().getStringArray(R.array.page_adapter_pages));
+    	
+    	pager	=	(ViewPager)super.findViewById(R.id.viewpager);
+    	
+    	pager.setAdapter(this.mPagerAdapter);
+    	pager.setCurrentItem(1);
+	}
+
+	@Override
     protected void onSaveInstanceState(Bundle outState){
     	super.onSaveInstanceState(outState);
     	outState.putInt("tab",getActionBar().getSelectedNavigationIndex());
@@ -127,6 +121,10 @@ public class QRConfigActivity extends Activity {
 
 	public ButtonListener getButtonListener() {
 		return buttonListener;
+	}
+
+	public void setFragment(int item) {
+		pager.setCurrentItem(item, true);
 	}
 
 }

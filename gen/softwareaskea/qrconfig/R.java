@@ -14,6 +14,9 @@ public final class R {
         public static final int fragment_slide_right_enter=0x7f040002;
         public static final int fragment_slide_right_exit=0x7f040003;
     }
+    public static final class array {
+        public static final int page_adapter_pages=0x7f070000;
+    }
     public static final class attr {
     }
     public static final class drawable {
@@ -42,23 +45,26 @@ public final class R {
         public static final int ic_menu_moreoverflow_normal_holo_light=0x7f020016;
         public static final int ic_menu_preferences=0x7f020017;
         public static final int ic_menu_settings_holo_light=0x7f020018;
-        public static final int icon=0x7f020019;
-        public static final int logo=0x7f02001a;
+        public static final int ic_next=0x7f020019;
+        public static final int ic_prev=0x7f02001a;
+        public static final int icon=0x7f02001b;
+        public static final int logo=0x7f02001c;
     }
     public static final class id {
-        public static final int blueOff=0x7f080005;
-        public static final int blueOn=0x7f080004;
-        public static final int button1=0x7f08000a;
-        public static final int exit=0x7f08000c;
-        public static final int homeScanQr=0x7f080000;
-        public static final int linearLayout1=0x7f080003;
-        public static final int linearLayout2=0x7f080007;
-        public static final int mainFL=0x7f080001;
-        public static final int scanQr=0x7f08000b;
-        public static final int textView1=0x7f080006;
-        public static final int textView2=0x7f080002;
-        public static final int wifiOff=0x7f080009;
-        public static final int wifiOn=0x7f080008;
+        public static final int blueOff=0x7f090006;
+        public static final int blueOn=0x7f090005;
+        public static final int button1=0x7f09000b;
+        public static final int exit=0x7f09000d;
+        public static final int homeScanQr=0x7f090000;
+        public static final int linearLayout2=0x7f090008;
+        public static final int manualLinearLayout2=0x7f090004;
+        public static final int pagertitlestrip=0x7f090002;
+        public static final int scanQr=0x7f09000c;
+        public static final int textView1=0x7f090007;
+        public static final int textView2=0x7f090003;
+        public static final int viewpager=0x7f090001;
+        public static final int wifiOff=0x7f09000a;
+        public static final int wifiOn=0x7f090009;
     }
     public static final class layout {
         public static final int home_fragment=0x7f030000;
@@ -68,7 +74,7 @@ public final class R {
         public static final int scan_qr_widget=0x7f030004;
     }
     public static final class menu {
-        public static final int overflow=0x7f070000;
+        public static final int overflow=0x7f080000;
     }
     public static final class string {
         public static final int app_name=0x7f060001;
