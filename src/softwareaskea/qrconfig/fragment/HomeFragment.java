@@ -38,4 +38,10 @@ public class HomeFragment extends Fragment {
         View view	=	inflater.inflate(R.layout.home_fragment, container, false);
         return view;
     }
+    
+    @Override
+    public void onResume(){
+    	super.onResume();
+    	qrca.updateViewStatus();
+    }
 }

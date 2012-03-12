@@ -12,9 +12,11 @@ public class WidgetActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        this.configEditor	=	new ConfigEditor(this);
-
+        configEditor	=	new ConfigEditor(this);
+	}
+	
+	@Override
+	public void onStart(){
         configEditor.scanQrCode();
 	}
     

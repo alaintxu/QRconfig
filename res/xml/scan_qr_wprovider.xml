@@ -4,7 +4,7 @@
     android:initialLayout="@layout/scan_qr_widget"
     android:minWidth="60dp"
     android:minHeight="30dp"
-    android:updatePeriodMillis="86400000"
+    android:updatePeriodMillis="8640000"
     android:resizeMode="horizontal"
     >
 </appwidget-provider>

@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <!-- Switch
+    <Switch
         android:id="@+id/btSwitch"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -16,56 +16,52 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:text="@string/wifi" /-->
-    
-
-    <LinearLayout
-        android:id="@+id/manualLinearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/blueOn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/enable" />
-
-        <Button
-            android:id="@+id/blueOff"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/disable" />
-    </LinearLayout>
+        android:text="@string/wifi" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/rTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/wifi"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:text="@string/rVolume" />
+    <SeekBar
+        android:id="@+id/rSeekBar"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/nVextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" >
+        android:text="@string/nVolume" />
 
-        <Button
-            android:id="@+id/wifiOn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/enable" />
+    <SeekBar
+        android:id="@+id/nSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/wifiOff"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:text="@string/disable" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/mTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mVolume" />
+
+    <SeekBar
+        android:id="@+id/mSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Switch
+        android:id="@+id/vbSwitch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="@string/vibration" />
+
+    <Button
+        android:id="@+id/saveAsProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/saveAsProfile" />
+
 </LinearLayout>

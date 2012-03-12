@@ -3,6 +3,7 @@ package softwareaskea.qrconfig.listener;
 import softwareaskea.qrconfig.ConfigEditor;
 import softwareaskea.qrconfig.R;
 import android.view.View;
+import android.widget.Switch;
 
 public class ButtonListener implements android.view.View.OnClickListener{
 
@@ -16,29 +17,59 @@ public class ButtonListener implements android.view.View.OnClickListener{
 
     public void onClick(View v) {
     	int id			=	v.getId();
-    	/*int wifiSwitch	=	R.id.wifiSwitch;
-    	int btSwitch	=	R.id.btSwitch;*/
-    	int scanQr		=	R.id.scanQr;
-    	int homeScanQr	=	R.id.homeScanQr;
-    	/*if(id==blueOnId)
-    		configEditor.bluetoothAldatu("On");
-    	else if(id==blueOffId)
-    		configEditor.bluetoothAldatu("Off");
-    	else if(id==wifiOnId)
-    		configEditor.wifiAldatu("On");
-    	else if(id==wifiOffId)
-    		configEditor.wifiAldatu("Off");*/
-    	/*if(id==wifiSwitch){
-    		Switch wSwitch	=	(Switch)v;
-    		Boolean selection	=	wSwitch.hasSelection();
-    		selection	=	false;
+    	
+    	switch(id){
+	    	case R.id.wifiSwitch:
+	    		wifiAction((Switch)v);
+	        	break;
+	    	case R.id.btSwitch:
+	    		btAction((Switch)v);
+	        	break;
+	    	case R.id.vbSwitch:
+	    		vbAction((Switch)v);
+	        	break;
+	    	case R.id.saveAsProfile:
+	    		saveAsProfileAction();
+	    		break;
+	    	case R.id.scanQr:
+	    	case R.id.homeScanQr:
+	    		configEditor.scanQrCode();
+	    		break;
+	    	default:
+	    		break;
     	}
-    	else if(id==btSwitch){
-    		Switch bSwitch	=	(Switch)v;
-    		Boolean selection	=	bSwitch.hasSelection();
-    		selection	=	false;
-    	}else */if(id==scanQr || id==homeScanQr)
-    		configEditor.scanQrCode();
     }
+    
+	/************  Actions  ************/
 
+    private void saveAsProfileAction() {
+		//Create profile from existing configuration an save in the DB
+	}
+
+	private void wifiAction(Switch switchv){
+		Boolean isChecked	=	switchv.isChecked();
+		
+    	if(isChecked)
+    		configEditor.setWifi("1");
+    	else
+    		configEditor.setWifi("0");
+    }
+    
+    private void btAction(Switch switchv){
+		Boolean isChecked	=	switchv.isChecked();
+		
+    	if(isChecked)
+    		configEditor.setBT("1");
+    	else
+    		configEditor.setBT("0");
+    }
+    
+    private void vbAction(Switch switchv){
+		Boolean isChecked	=	switchv.isChecked();
+		
+    	if(isChecked)
+    		configEditor.setVB("1");
+    	else
+    		configEditor.setVB("0");
+    }
 }

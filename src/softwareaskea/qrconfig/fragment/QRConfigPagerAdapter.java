@@ -1,13 +1,9 @@
 package softwareaskea.qrconfig.fragment;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import softwareaskea.qrconfig.R;
 
 public class QRConfigPagerAdapter extends FragmentPagerAdapter {
 	
@@ -35,6 +31,4 @@ public class QRConfigPagerAdapter extends FragmentPagerAdapter {
 	public CharSequence getPageTitle (int position){
 		return fragmentTitles[position];
 	}
-	
-
 }

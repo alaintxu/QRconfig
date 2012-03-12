@@ -4,7 +4,6 @@ package softwareaskea.qrconfig;
 import java.util.List;
 import java.util.Vector;
 
-import softwareaskea.qrconfig.db.*;
 import softwareaskea.qrconfig.fragment.*;
 import softwareaskea.qrconfig.listener.*;
 import android.support.v4.app.Fragment;
@@ -16,11 +15,11 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Switch;
 
 public class QRConfigActivity extends FragmentActivity {
 	private ConfigEditor	configEditor;
 	private ButtonListener	buttonListener;
-	private DatabaseManager	databaseManager;
 	private PagerAdapter	mPagerAdapter;
 	private ViewPager		pager;
 	
@@ -31,7 +30,6 @@ public class QRConfigActivity extends FragmentActivity {
         
         configEditor	=	new ConfigEditor(this);
         buttonListener	=	new ButtonListener(configEditor);
-        databaseManager=	new	DatabaseManager();
         setContentView(R.layout.main);
         
         this.initialisePaging();
@@ -54,7 +52,6 @@ public class QRConfigActivity extends FragmentActivity {
 	@Override
     protected void onSaveInstanceState(Bundle outState){
     	super.onSaveInstanceState(outState);
-    	outState.putInt("tab",getActionBar().getSelectedNavigationIndex());
     }
     
     //Overflow menu in Action bar
@@ -81,6 +78,11 @@ public class QRConfigActivity extends FragmentActivity {
         }
     }
     
+    @Override
+    public void onResume(){
+    	super.onResume();
+    }
+    
     /**
      * Manage result of QR code scan
      * @param requestCode	0 if there is any result
@@ -102,6 +104,20 @@ public class QRConfigActivity extends FragmentActivity {
     
     public void quit(){
     	this.finish();
+    }
+    
+    public void updateViewStatus(){
+    	Boolean	isBTEnabled		=	configEditor.isBTEnabled();
+    	Boolean isWifiEnabled	=	configEditor.isWifiEnabled();
+    	Boolean isVBEnabled		=	configEditor.isWifiEnabled();
+    	
+    	Switch btSwitch			=	(Switch) findViewById(R.id.btSwitch);
+    	Switch wifiSwitch		=	(Switch) findViewById(R.id.wifiSwitch);
+    	Switch vbSwitch			=	(Switch) findViewById(R.id.vbSwitch);
+    	
+        btSwitch.setChecked(isBTEnabled);
+        wifiSwitch.setChecked(isWifiEnabled);
+        vbSwitch.setChecked(isVBEnabled);
     }
     
     /**************  Getters  **************/

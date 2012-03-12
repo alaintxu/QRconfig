@@ -22,6 +22,11 @@
     <string name="presets">Presets</string>
     <string name="manual">Manual</string>
     <string name="exit">Exit</string>
+    <string name="rVolume">Ringtone Volume</string>
+    <string name="nVolume">Notification Volume</string>
+    <string name="mVolume">Multimedia Volume</string>
+    <string name="vibration">Vibration</string>
+    <string name="saveAsProfile">Save as profile</string>
     
     <string-array name="page_adapter_pages">
         <item>Manual</item>
