@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <EditText
+        android:id="@+id/profName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/profName" >
+
+        <requestFocus />
+    </EditText>
+
+	<Switch
+        android:id="@+id/btSwitchProf"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="@string/bluetooth" />
+
+  	<Switch
+       	android:id="@+id/wifiSwitchProf"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="@string/wifi" />
+ 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/volumes"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/profRowRT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rVolume" />
+
+            <SeekBar
+                android:id="@+id/rSeekBarProf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/profRowN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+	        <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/nVolume" />
+	
+	        <SeekBar
+	            android:id="@+id/nSeekBarProf"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/profRowM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+	        <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/mVolume" />
+	
+	        <SeekBar
+	            android:id="@+id/mSeekBarProf"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" />
+        </TableRow>
+
+    </TableLayout>
+    <Switch
+        android:id="@+id/vbSwitchProf"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/vibration" />
+
+</LinearLayout>

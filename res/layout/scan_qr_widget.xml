@@ -10,7 +10,7 @@
         android:contentDescription="@string/scanQr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/logo"
+        android:background="@drawable/scanqr"
         android:padding="5dip"/>
 
 </LinearLayout>

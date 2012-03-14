@@ -44,6 +44,7 @@ public class ButtonListener implements android.view.View.OnClickListener{
 
     private void saveAsProfileAction() {
 		//Create profile from existing configuration an save in the DB
+    	configEditor.saveManualAsProfile();
 	}
 
 	private void wifiAction(Switch switchv){

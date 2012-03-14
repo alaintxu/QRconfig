@@ -3,9 +3,13 @@
     <item android:id="@+id/scanQr"
           android:icon="@drawable/ic_menu_camera"
           android:title="@string/scanQr"
-          android:showAsAction="ifRoom|withText|collapseActionView"/>
+          android:showAsAction="ifRoom|collapseActionView"/>
+    <item android:id="@+id/addProfile"
+          android:icon="@drawable/ic_menu_add"
+          android:title="@string/addProfile"
+          android:showAsAction="ifRoom|collapseActionView"/>
     <item android:id="@+id/exit"
           android:icon="@drawable/ic_menu_close_clear_cancel"
           android:title="@string/exit"
-          android:showAsAction="ifRoom|withText|collapseActionView"/>
+          android:showAsAction="ifRoom|collapseActionView"/>
 </menu>

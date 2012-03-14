@@ -19,19 +19,22 @@
     <string name="help">Help</string>
     <string name="moreOptions">More options</string>
     <string name="home">Home</string>
-    <string name="presets">Presets</string>
+    <string name="profileList">Profile List</string>
     <string name="manual">Manual</string>
     <string name="exit">Exit</string>
-    <string name="rVolume">Ringtone Volume</string>
-    <string name="nVolume">Notification Volume</string>
-    <string name="mVolume">Multimedia Volume</string>
+    <string name="rVolume">Ringtone</string>
+    <string name="nVolume">Notification</string>
+    <string name="mVolume">Multimedia</string>
+    <string name="volumes">Volumes</string>
     <string name="vibration">Vibration</string>
     <string name="saveAsProfile">Save as profile</string>
+    <string name="profName">Profile Name</string>
+    <string name="addProfile">New Profile</string>
     
     <string-array name="page_adapter_pages">
         <item>Manual</item>
         <item>Home</item>
-        <item>Presets</item>
+        <item>Profile List</item>
     </string-array>
     
 

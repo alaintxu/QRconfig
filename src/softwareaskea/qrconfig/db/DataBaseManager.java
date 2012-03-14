@@ -2,7 +2,7 @@ package softwareaskea.qrconfig.db;
 
 import android.content.Context;
 import android.widget.Toast;
-import softwareaskea.qrconfig.ConfigProfile;
+import softwareaskea.qrconfig.profiles.Profile;
 
 
 public class DataBaseManager {
@@ -14,7 +14,7 @@ public class DataBaseManager {
 		this.context	=	context;
 	}
 
-	public int saveConfigProfile(ConfigProfile profile){
+	public int saveConfigProfile(Profile profile){
 		Toast.makeText(context, "not implemented yet", Toast.LENGTH_SHORT);
 		return -1;
 	}
@@ -27,7 +27,7 @@ public class DataBaseManager {
 		this.context	=	context;
 	}
 
-	public ConfigProfile getProfile(String profileName) {
+	public Profile getProfile(String profileName) {
 		Toast.makeText(context, "not implemented yet", Toast.LENGTH_SHORT);
 		return null;
 	}

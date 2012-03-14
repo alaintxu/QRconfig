@@ -1,12 +1,19 @@
 package softwareaskea.qrconfig;
 
+import java.util.List;
+
 import softwareaskea.qrconfig.db.DataBaseManager;
+import softwareaskea.qrconfig.db.ProfileDAO;
+import softwareaskea.qrconfig.profiles.Profile;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.net.wifi.WifiManager;
+import android.widget.SeekBar;
+import android.widget.Switch;
+import android.widget.Toast;
 
 public class ConfigEditor {
 	private BluetoothAdapter	mBluetoothAdapter;
@@ -14,6 +21,7 @@ public class ConfigEditor {
 	private AudioManager		mAudioManager;
 	private Activity			mActivity;
 	private DataBaseManager		mDataBaseManager;
+	private ProfileDAO			mProfileDAO;
 	
 	public ConfigEditor(){}
 	
@@ -23,6 +31,58 @@ public class ConfigEditor {
 		mDataBaseManager	=	new	DataBaseManager(activity.getApplicationContext());
     	mAudioManager		= 	(AudioManager)activity.getSystemService(Context.AUDIO_SERVICE);
 		mActivity			=	activity;
+		mProfileDAO			=	new ProfileDAO(activity.getApplicationContext());
+	}
+	
+	/*********************  Database  *********************/
+
+
+	public void resume() {
+		mProfileDAO.open();
+	}
+	public void pause() {
+		mProfileDAO.close();
+	}
+	
+	/*********************  Profiles  *********************/
+	public List<Profile> getProfileList(){
+		return mProfileDAO.getAllProfiles();
+	}
+	
+	public Profile manual2profile(){
+		Toast.makeText(mActivity.getApplicationContext(), "Must ask for name", Toast.LENGTH_SHORT).show();
+		String name		=	"Manual";
+		Switch mSwitch	=	(Switch)mActivity.findViewById(R.id.wifiSwitch);
+		Boolean wifi	=	mSwitch.isChecked();
+		
+		mSwitch				=	(Switch)mActivity.findViewById(R.id.btSwitch);
+		Boolean bluetooth	=	mSwitch.isChecked();
+		
+		mSwitch				=	(Switch)mActivity.findViewById(R.id.vbSwitch);
+		Boolean vibration	=	mSwitch.isChecked();
+		
+		SeekBar	seekBar		=	(SeekBar)mActivity.findViewById(R.id.rSeekBar);
+		int ringtoneVolume	=	seekBar.getProgress();
+		
+		seekBar				=	(SeekBar)mActivity.findViewById(R.id.rSeekBar);
+		int notificationVolume	=	seekBar.getProgress();
+		seekBar				=	(SeekBar)mActivity.findViewById(R.id.rSeekBar);
+		
+		int multimediaVolume	=	seekBar.getProgress();
+		
+		Profile profile	=	new Profile(name, wifi, bluetooth, vibration, ringtoneVolume, notificationVolume, multimediaVolume);
+		
+		return profile;
+	}
+
+	public void saveManualAsProfile() {
+		Profile profile	=	manual2profile();
+		
+		profile	=	mProfileDAO.createProfile(profile);
+		
+		Toast.makeText(mActivity.getApplicationContext(), profile.getName()+" profile created ("+profile.getId()+")", Toast.LENGTH_SHORT).show();
+		((QRConfigActivity)mActivity).updateProfileList();
+		
 	}
 	
 	/*********************  Bluetooth  *********************/
@@ -106,7 +166,7 @@ public class ConfigEditor {
     }
     
     private void processProfile(String profileName) {
-    	ConfigProfile profile	=	mDataBaseManager.getProfile(profileName);
+    	Profile profile	=	mDataBaseManager.getProfile(profileName);
     	mDataBaseManager.saveConfigProfile(profile);
 	}
     

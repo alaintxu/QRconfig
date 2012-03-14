@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PresetsFragment extends Fragment {
+public class ProfileListFragment extends Fragment {
 	private	QRConfigActivity	qrca		=	null;
 	//private	ButtonListener	buttonListener	=	null;
 	
@@ -31,7 +31,7 @@ public class PresetsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.presets_fragment, container, false);
+        return inflater.inflate(R.layout.profile_list_fragment, container, false);
     }
     
 
@@ -39,5 +39,6 @@ public class PresetsFragment extends Fragment {
     public void onResume(){
     	super.onResume();
     	qrca.updateViewStatus();
+    	qrca.updateProfileList();
     }
 }

@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import softwareaskea.qrconfig.fragment.*;
 import softwareaskea.qrconfig.listener.*;
+import softwareaskea.qrconfig.profiles.Profile;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +16,10 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class QRConfigActivity extends FragmentActivity {
 	private ConfigEditor	configEditor;
@@ -39,7 +43,7 @@ public class QRConfigActivity extends FragmentActivity {
     	List<Fragment>	fragments	=	new	Vector<Fragment>();
     	fragments.add(Fragment.instantiate(this, ManualFragment.class.getName()));
     	fragments.add(Fragment.instantiate(this, HomeFragment.class.getName()));
-    	fragments.add(Fragment.instantiate(this, PresetsFragment.class.getName()));
+    	fragments.add(Fragment.instantiate(this, ProfileListFragment.class.getName()));
     	
     	mPagerAdapter	=	new	QRConfigPagerAdapter(super.getSupportFragmentManager(),fragments,getResources().getStringArray(R.array.page_adapter_pages));
     	
@@ -73,6 +77,9 @@ public class QRConfigActivity extends FragmentActivity {
             case R.id.exit:
             	quit();
                 return true;
+            case R.id.addProfile:
+            	Toast.makeText(getApplicationContext(), "Not implemented yet", Toast.LENGTH_SHORT);	
+            	return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -80,8 +87,15 @@ public class QRConfigActivity extends FragmentActivity {
     
     @Override
     public void onResume(){
+    	configEditor.resume();
     	super.onResume();
     }
+
+	@Override
+	protected void onPause() {
+		configEditor.pause();
+		super.onPause();
+	}
     
     /**
      * Manage result of QR code scan
@@ -119,6 +133,21 @@ public class QRConfigActivity extends FragmentActivity {
         wifiSwitch.setChecked(isWifiEnabled);
         vbSwitch.setChecked(isVBEnabled);
     }
+
+	
+	public void updateProfileList(){
+    	try{
+        	/*List<Profile>	profiles	=	configEditor.getProfileList();
+        	
+        	ArrayAdapter<Profile>	adapter		=	new ArrayAdapter<Profile>(getApplicationContext(), 0, profiles);
+        	
+        	ListView		lv			=	(ListView) findViewById(R.id.profileList);
+        	
+    		lv.setAdapter(adapter);*/
+    	}catch(Exception e){
+    		Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+    	}
+	}
     
     /**************  Getters  **************/
     public ConfigEditor getConfigEditor(){

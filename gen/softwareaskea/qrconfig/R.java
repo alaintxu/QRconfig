@@ -48,38 +48,54 @@ public final class R {
         public static final int ic_next=0x7f020019;
         public static final int ic_prev=0x7f02001a;
         public static final int icon=0x7f02001b;
-        public static final int logo=0x7f02001c;
+        public static final int scanqr=0x7f02001c;
     }
     public static final class id {
-        public static final int btSwitch=0x7f090003;
-        public static final int button1=0x7f09000d;
-        public static final int exit=0x7f090010;
+        public static final int addProfile=0x7f09001d;
+        public static final int btSwitch=0x7f090004;
+        public static final int btSwitchProf=0x7f090010;
+        public static final int exit=0x7f09001e;
         public static final int homeScanQr=0x7f090000;
-        public static final int mSeekBar=0x7f09000a;
-        public static final int mTextView=0x7f090009;
-        public static final int nSeekBar=0x7f090008;
-        public static final int nVextView=0x7f090007;
+        public static final int mSeekBar=0x7f09000c;
+        public static final int mSeekBarProf=0x7f090018;
+        public static final int manualRowM=0x7f09000b;
+        public static final int manualRowN=0x7f090009;
+        public static final int manualRowRT=0x7f090007;
+        public static final int manualTableLayout=0x7f090006;
+        public static final int nSeekBar=0x7f09000a;
+        public static final int nSeekBarProf=0x7f090016;
         public static final int pagertitlestrip=0x7f090002;
-        public static final int rSeekBar=0x7f090006;
-        public static final int rTextView=0x7f090005;
-        public static final int saveAsProfile=0x7f09000c;
-        public static final int scanQr=0x7f09000f;
-        public static final int vbSwitch=0x7f09000b;
+        public static final int profName=0x7f09000f;
+        public static final int profRowM=0x7f090017;
+        public static final int profRowN=0x7f090015;
+        public static final int profRowRT=0x7f090013;
+        public static final int profileList=0x7f09001a;
+        public static final int rSeekBar=0x7f090008;
+        public static final int rSeekBarProf=0x7f090014;
+        public static final int saveAsProfile=0x7f09000e;
+        public static final int scanQr=0x7f09001c;
+        public static final int scrollView1=0x7f090003;
+        public static final int tableLayout1=0x7f090012;
+        public static final int vbSwitch=0x7f09000d;
+        public static final int vbSwitchProf=0x7f090019;
         public static final int viewpager=0x7f090001;
-        public static final int widget=0x7f09000e;
-        public static final int wifiSwitch=0x7f090004;
+        public static final int widget=0x7f09001b;
+        public static final int wifiSwitch=0x7f090005;
+        public static final int wifiSwitchProf=0x7f090011;
     }
     public static final class layout {
         public static final int home_fragment=0x7f030000;
         public static final int main=0x7f030001;
         public static final int manual_fragment=0x7f030002;
-        public static final int presets_fragment=0x7f030003;
-        public static final int scan_qr_widget=0x7f030004;
+        public static final int profile_fragment=0x7f030003;
+        public static final int profile_list_fragment=0x7f030004;
+        public static final int scan_qr_widget=0x7f030005;
     }
     public static final class menu {
         public static final int overflow=0x7f080000;
     }
     public static final class string {
+        public static final int addProfile=0x7f06001c;
         public static final int app_name=0x7f060001;
         public static final int blueOff=0x7f06000c;
         public static final int blueOffButtonText=0x7f060004;
@@ -97,11 +113,13 @@ public final class R {
         public static final int moreOptions=0x7f060010;
         public static final int nVolume=0x7f060016;
         public static final int nothing2change=0x7f06000a;
-        public static final int presets=0x7f060012;
+        public static final int profName=0x7f06001b;
+        public static final int profileList=0x7f060012;
         public static final int rVolume=0x7f060015;
-        public static final int saveAsProfile=0x7f060019;
+        public static final int saveAsProfile=0x7f06001a;
         public static final int scanQr=0x7f060008;
-        public static final int vibration=0x7f060018;
+        public static final int vibration=0x7f060019;
+        public static final int volumes=0x7f060018;
         public static final int wifi=0x7f060005;
         public static final int wifiOff=0x7f06000e;
         public static final int wifiOn=0x7f06000d;

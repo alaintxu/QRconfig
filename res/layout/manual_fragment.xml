@@ -1,67 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-    <Switch
-        android:id="@+id/btSwitch"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="@string/bluetooth" />
-    
-    <Switch
-        android:id="@+id/wifiSwitch"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="@string/wifi" />
+        android:layout_height="fill_parent"
+	    android:orientation="vertical">
+	<LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:layout_marginTop="14dp">
+	
+		<Switch
+	        android:id="@+id/btSwitch"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="right"
+	        android:text="@string/bluetooth"
+	        android:layout_margin="7dp"/>
+	
+	  	<Switch
+	       	android:id="@+id/wifiSwitch"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="right"
+	        android:text="@string/wifi"
+	        android:layout_margin="7dp" />
+	 
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/volumes"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:layout_margin="7dp"/>
+		
+	    <TableLayout
+	        android:id="@+id/manualTableLayout"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:stretchColumns="1">
+	
+	        <TableRow
+	            android:id="@+id/manualRowRT"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content" 
+	        	android:layout_margin="7dp">
+		
+	            <TextView
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:text="@string/rVolume" />
+		
+	            <SeekBar
+	                android:id="@+id/rSeekBar"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content" />
+	
+	        </TableRow>
+	
+	        <TableRow
+	            android:id="@+id/manualRowN"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	        	android:layout_margin="7dp" >
+		
+	            <TextView
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:text="@string/nVolume" />
+	
+	            <SeekBar
+	                android:id="@+id/nSeekBar"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content" />
+	        </TableRow>
+	
+	        <TableRow
+	            android:id="@+id/manualRowM"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	        	android:layout_margin="7dp">
+		
+	            <TextView
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:text="@string/mVolume" />
+	
+	            <SeekBar
+	                android:id="@+id/mSeekBar"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content" />
+	        </TableRow>
+	    </TableLayout>
+	    <Switch
+	        android:id="@+id/vbSwitch"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/vibration"
+	        android:layout_margin="7dp"/>
+		
+	    <Button
+	        android:id="@+id/saveAsProfile"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:text="@string/saveAsProfile" />
+	
+	</LinearLayout>
 
-    <TextView
-        android:id="@+id/rTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rVolume" />
-    <SeekBar
-        android:id="@+id/rSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/nVextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nVolume" />
-
-    <SeekBar
-        android:id="@+id/nSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/mTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mVolume" />
-
-    <SeekBar
-        android:id="@+id/mSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Switch
-        android:id="@+id/vbSwitch"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="@string/vibration" />
-
-    <Button
-        android:id="@+id/saveAsProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/saveAsProfile" />
-
-</LinearLayout>
+</ScrollView>
