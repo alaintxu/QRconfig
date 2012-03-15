@@ -6,7 +6,6 @@ import java.util.Vector;
 
 import softwareaskea.qrconfig.fragment.*;
 import softwareaskea.qrconfig.listener.*;
-import softwareaskea.qrconfig.profiles.Profile;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -124,14 +122,23 @@ public class QRConfigActivity extends FragmentActivity {
     	Boolean	isBTEnabled		=	configEditor.isBTEnabled();
     	Boolean isWifiEnabled	=	configEditor.isWifiEnabled();
     	Boolean isVBEnabled		=	configEditor.isWifiEnabled();
+    	int rtVol				=	configEditor.getRTVolume();
+    	int nVol				=	configEditor.getNVolume();
+    	int mVol				=	configEditor.getMVolume();
     	
     	Switch btSwitch			=	(Switch) findViewById(R.id.btSwitch);
     	Switch wifiSwitch		=	(Switch) findViewById(R.id.wifiSwitch);
     	Switch vbSwitch			=	(Switch) findViewById(R.id.vbSwitch);
+    	SeekBar	rtSeekBar		=	(SeekBar) findViewById(R.id.rtSeekBar);
+    	SeekBar	nSeekBar		=	(SeekBar) findViewById(R.id.nSeekBar);
+    	SeekBar	mSeekBar		=	(SeekBar) findViewById(R.id.mSeekBar);
     	
         btSwitch.setChecked(isBTEnabled);
         wifiSwitch.setChecked(isWifiEnabled);
         vbSwitch.setChecked(isVBEnabled);
+        rtSeekBar.setProgress(rtVol);
+        nSeekBar.setProgress(nVol);
+        mSeekBar.setProgress(mVol);
     }
 
 	

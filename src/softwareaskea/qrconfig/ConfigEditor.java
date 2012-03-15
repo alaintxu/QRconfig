@@ -61,12 +61,12 @@ public class ConfigEditor {
 		mSwitch				=	(Switch)mActivity.findViewById(R.id.vbSwitch);
 		Boolean vibration	=	mSwitch.isChecked();
 		
-		SeekBar	seekBar		=	(SeekBar)mActivity.findViewById(R.id.rSeekBar);
+		SeekBar	seekBar		=	(SeekBar)mActivity.findViewById(R.id.rtSeekBar);
 		int ringtoneVolume	=	seekBar.getProgress();
 		
-		seekBar				=	(SeekBar)mActivity.findViewById(R.id.rSeekBar);
+		seekBar				=	(SeekBar)mActivity.findViewById(R.id.nSeekBar);
 		int notificationVolume	=	seekBar.getProgress();
-		seekBar				=	(SeekBar)mActivity.findViewById(R.id.rSeekBar);
+		seekBar				=	(SeekBar)mActivity.findViewById(R.id.mSeekBar);
 		
 		int multimediaVolume	=	seekBar.getProgress();
 		
@@ -146,8 +146,18 @@ public class ConfigEditor {
     }
 
 	/*********************  Volume  *********************/
-    public void setVolume(int stream,int vol){
+    private void setVolume(int stream,int vol){
     	mAudioManager.setStreamVolume(stream, vol, 0);
+    }
+    
+    private int getVolume(int stream){
+    	int vol	=	mAudioManager.getStreamVolume(stream);
+    	return vol;
+    }
+    
+    private int getMaxVolume(int stream){
+    	int vol	=	mAudioManager.getStreamMaxVolume(stream);
+    	return vol;
     }
     
     //Ringtone
@@ -155,15 +165,41 @@ public class ConfigEditor {
     	setVolume(AudioManager.STREAM_RING, vol);
     }
     
+    public int getRTVolume(){
+    	return getVolume(AudioManager.STREAM_RING);
+    }
+    
+    public int getRTMaxVolume(){
+    	return getMaxVolume(AudioManager.STREAM_RING);
+    }
+    
     //Notifications
     public void setNVolume (int vol){
     	setVolume(AudioManager.STREAM_NOTIFICATION,vol);
+    }
+    
+    public int getNVolume(){
+    	return getVolume(AudioManager.STREAM_NOTIFICATION);
+    }
+    
+    public int getNMaxVolume(){
+    	return getMaxVolume(AudioManager.STREAM_NOTIFICATION);
     }
 
     //Music-Multimedia
     public void setMVolume (int vol){
     	setVolume(AudioManager.STREAM_MUSIC,vol);
     }
+    
+    public int getMVolume(){
+    	return getVolume(AudioManager.STREAM_MUSIC);
+    }
+    
+    public int getMMaxVolume(){
+    	return getMaxVolume(AudioManager.STREAM_MUSIC);
+    }
+    
+	/*********************  Profile  *********************/
     
     private void processProfile(String profileName) {
     	Profile profile	=	mDataBaseManager.getProfile(profileName);
@@ -230,5 +266,9 @@ public class ConfigEditor {
     public static String getGoogleChartQRLink(String data){
     	String	link	=	getGoogleChartQRLink(256,256,data);
     	return link;
+    }
+    
+    public void updateViewStatus(){
+    	((QRConfigActivity)mActivity).updateViewStatus();
     }
 }

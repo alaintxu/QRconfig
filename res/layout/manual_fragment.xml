@@ -25,20 +25,48 @@
 	        android:layout_gravity="right"
 	        android:text="@string/wifi"
 	        android:layout_margin="7dp" />
-	 
-	    <TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/volumes"
-	        android:textAppearance="?android:attr/textAppearanceMedium"
-	        android:layout_margin="7dp"/>
 		
 	    <TableLayout
 	        android:id="@+id/manualTableLayout"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:stretchColumns="1">
+	        android:stretchColumns="1"
+	        android:paddingRight="14dp">
 	
+	        <TableRow
+	            android:id="@+id/manualRowTitle"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content">
+	 
+			    <TextView
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/volumes"
+			        android:textAppearance="?android:attr/textAppearanceMedium"
+			        android:layout_margin="7dp"/>
+
+				<LinearLayout
+				    android:layout_width="fill_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_gravity="right"
+				    android:orientation="horizontal"
+				    android:paddingRight="12dp">
+
+				    <ImageButton
+				        android:id="@+id/volMuteBtn"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:src="@drawable/ic_audio_vol_mute"
+				        android:contentDescription="@string/volMuteAll"/>
+				    <ImageButton
+				        android:id="@+id/volMaxBtn"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:src="@drawable/ic_audio_vol"
+				        android:contentDescription="@string/volMaxAll"/>
+			    </LinearLayout>
+		    
+			</TableRow>
 	        <TableRow
 	            android:id="@+id/manualRowRT"
 	            android:layout_width="fill_parent"
@@ -51,9 +79,9 @@
 	                android:text="@string/rVolume" />
 		
 	            <SeekBar
-	                android:id="@+id/rSeekBar"
+	                android:id="@+id/rtSeekBar"
 	                android:layout_width="fill_parent"
-	                android:layout_height="wrap_content" />
+	                android:layout_height="wrap_content"/>
 	
 	        </TableRow>
 	

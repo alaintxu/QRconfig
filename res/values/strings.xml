@@ -30,6 +30,9 @@
     <string name="saveAsProfile">Save as profile</string>
     <string name="profName">Profile Name</string>
     <string name="addProfile">New Profile</string>
+    <string name="volMaxAll">Set all volumes to max</string>
+    <string name="volMuteAll">Mute all volumes</string>
+    
     
     <string-array name="page_adapter_pages">
         <item>Manual</item>
