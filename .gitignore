@@ -1,5 +1,6 @@
 #Ignore any class file
 *.class
+*.dex
 bin/classes/**/*
 #Ignore Eclipse project
 .settings/**/*
