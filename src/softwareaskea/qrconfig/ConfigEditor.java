@@ -2,7 +2,6 @@ package softwareaskea.qrconfig;
 
 import java.util.List;
 
-import softwareaskea.qrconfig.db.DataBaseManager;
 import softwareaskea.qrconfig.db.ProfileDAO;
 import softwareaskea.qrconfig.profiles.Profile;
 import android.app.Activity;
@@ -16,11 +15,11 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 public class ConfigEditor {
+	
 	private BluetoothAdapter	mBluetoothAdapter;
 	private WifiManager			mWifiManager;
 	private AudioManager		mAudioManager;
 	private Activity			mActivity;
-	private DataBaseManager		mDataBaseManager;
 	private ProfileDAO			mProfileDAO;
 	
 	public ConfigEditor(){}
@@ -28,7 +27,6 @@ public class ConfigEditor {
 	public ConfigEditor(Activity activity){
 		mBluetoothAdapter	=	BluetoothAdapter.getDefaultAdapter();
 		mWifiManager		=	(WifiManager) activity.getSystemService(Context.WIFI_SERVICE);
-		mDataBaseManager	=	new	DataBaseManager(activity.getApplicationContext());
     	mAudioManager		= 	(AudioManager)activity.getSystemService(Context.AUDIO_SERVICE);
 		mActivity			=	activity;
 		mProfileDAO			=	new ProfileDAO(activity.getApplicationContext());
@@ -36,47 +34,67 @@ public class ConfigEditor {
 	
 	/*********************  Database  *********************/
 
-
 	public void resume() {
 		mProfileDAO.open();
 	}
 	public void pause() {
 		mProfileDAO.close();
 	}
+
+	/*********************  Activities  *********************/
+	public Activity getActivity(){
+		return mActivity;
+	}
 	
 	/*********************  Profiles  *********************/
 	public List<Profile> getProfileList(){
 		return mProfileDAO.getAllProfiles();
 	}
+	public List<String> getProfileListStr() {
+		return mProfileDAO.getAllProfileNames();
+	}
 	
-	public Profile manual2profile(){
-		Toast.makeText(mActivity.getApplicationContext(), "Must ask for name", Toast.LENGTH_SHORT).show();
-		String name		=	"Manual";
-		Switch mSwitch	=	(Switch)mActivity.findViewById(R.id.wifiSwitch);
-		Boolean wifi	=	mSwitch.isChecked();
+	public void setProfile(Profile profile){
+		this.setBT(profile.getBluetooth());
+		this.setWifi(profile.getWifi());
+		this.setVB(profile.getVibration());
+		this.setRTVolume(profile.getVolume());
+		this.setMVolume(profile.getMultimediaVolume());
+		
+	}
+	
+	public Profile manual2profile(String name){
+		Switch	mSwitch;
+		SeekBar seekBar;
+		int		wifi;
+		int		bluetooth;
+		int		vibration;
+		
+		mSwitch	=	(Switch)mActivity.findViewById(R.id.wifiSwitch);
+		if(mSwitch.isChecked()) wifi	=	1;
+		else					wifi	=	0;
 		
 		mSwitch				=	(Switch)mActivity.findViewById(R.id.btSwitch);
-		Boolean bluetooth	=	mSwitch.isChecked();
+		if(mSwitch.isChecked()) bluetooth	=	1;
+		else					bluetooth	=	0;
 		
 		mSwitch				=	(Switch)mActivity.findViewById(R.id.vbSwitch);
-		Boolean vibration	=	mSwitch.isChecked();
+		if(mSwitch.isChecked()) vibration	=	1;
+		else					vibration	=	0;
 		
-		SeekBar	seekBar		=	(SeekBar)mActivity.findViewById(R.id.rtSeekBar);
-		int ringtoneVolume	=	seekBar.getProgress();
+		seekBar					=	(SeekBar)mActivity.findViewById(R.id.rtSeekBar);
+		int ringtoneVolume		=	seekBar.getProgress();
 		
-		seekBar				=	(SeekBar)mActivity.findViewById(R.id.nSeekBar);
-		int notificationVolume	=	seekBar.getProgress();
-		seekBar				=	(SeekBar)mActivity.findViewById(R.id.mSeekBar);
-		
+		seekBar					=	(SeekBar)mActivity.findViewById(R.id.mSeekBar);
 		int multimediaVolume	=	seekBar.getProgress();
 		
-		Profile profile	=	new Profile(name, wifi, bluetooth, vibration, ringtoneVolume, notificationVolume, multimediaVolume);
+		Profile profile	=	new Profile(name, wifi, bluetooth, vibration, ringtoneVolume, multimediaVolume);
 		
 		return profile;
 	}
 
-	public void saveManualAsProfile() {
-		Profile profile	=	manual2profile();
+	public void saveManualAsProfile(String name) {
+		Profile profile	=	manual2profile(name);
 		
 		profile	=	mProfileDAO.createProfile(profile);
 		
@@ -86,12 +104,12 @@ public class ConfigEditor {
 	}
 	
 	/*********************  Bluetooth  *********************/
-    public int setBT (String activate){
+    public int setBT (int	action){
     	Boolean isBTEnabled = isBTEnabled();
-    	if (activate.equals("1") && !isBTEnabled){
+    	if (action==Profile.BLUETOOTH_ON && !isBTEnabled){
     		mBluetoothAdapter.enable();
     		return 1;
-    	}else if(activate.equals("0") && isBTEnabled){
+    	}else if(action==Profile.BLUETOOTH_ON && isBTEnabled){
     		mBluetoothAdapter.disable();
     		return 2;
     	}
@@ -105,13 +123,13 @@ public class ConfigEditor {
 
 
 	/*********************  Vibration  *********************/
-	public int setVB(String activate) {
+	public int setVB(int action) {
 		Boolean isVBEnabled	=	isVBEnabled();
-    	if(activate.equals("1") && !isVBEnabled){
+    	if(action==Profile.VIBRATION_ON && !isVBEnabled){
     		mAudioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
     	    mWifiManager.setWifiEnabled(true);
     	    return 1;
-    	}else if(activate.equals("0") && isVBEnabled){
+    	}else if(action==Profile.VIBRATION_ON && isVBEnabled){
     		mAudioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
     	    return 2;
     	}
@@ -128,12 +146,12 @@ public class ConfigEditor {
     
 
 	/*********************  WiFi  *********************/
-    public int setWifi (String activate){
+    public int setWifi (int action){
 		Boolean isWifiEnabled	=	isWifiEnabled();
-    	if(activate.equals("1") && !isWifiEnabled){  
+    	if(action==Profile.WIFI_ON && !isWifiEnabled){  
     	    mWifiManager.setWifiEnabled(true);
     	    return 1;
-    	}else if(activate.equals("0") && isWifiEnabled){  
+    	}else if(action==Profile.WIFI_OFF && isWifiEnabled){  
     	    mWifiManager.setWifiEnabled(false);
     	    return 2;
     	}
@@ -172,19 +190,6 @@ public class ConfigEditor {
     public int getRTMaxVolume(){
     	return getMaxVolume(AudioManager.STREAM_RING);
     }
-    
-    //Notifications
-    public void setNVolume (int vol){
-    	setVolume(AudioManager.STREAM_NOTIFICATION,vol);
-    }
-    
-    public int getNVolume(){
-    	return getVolume(AudioManager.STREAM_NOTIFICATION);
-    }
-    
-    public int getNMaxVolume(){
-    	return getMaxVolume(AudioManager.STREAM_NOTIFICATION);
-    }
 
     //Music-Multimedia
     public void setMVolume (int vol){
@@ -202,8 +207,12 @@ public class ConfigEditor {
 	/*********************  Profile  *********************/
     
     private void processProfile(String profileName) {
-    	Profile profile	=	mDataBaseManager.getProfile(profileName);
-    	mDataBaseManager.saveConfigProfile(profile);
+    	try{
+    		Profile profile	=	mProfileDAO.loadProfile(profileName);
+    		this.setProfile(profile);
+    	}catch(Exception e){
+    		Toast.makeText(mActivity.getApplicationContext(), R.string.error_profile_load, Toast.LENGTH_LONG).show();
+    	}
 	}
     
 	/*********************  QR Code  *********************/
@@ -246,9 +255,9 @@ public class ConfigEditor {
     		for (String s : split) {
     		      String[] subsplit = s.split(":");
     		      if(subsplit[0].equals("B"))
-    		    	  setBT(subsplit[1]);
+    		    	  setBT(Integer.parseInt(subsplit[1]));
     		      else if(subsplit[0].equals("W"))
-    		    	  setWifi(subsplit[1]);
+    		    	  setWifi(Integer.parseInt(subsplit[1]));
     		      else if(subsplit[0].equals("P"))
     		    	  processProfile(subsplit[1]);
     		}
@@ -271,4 +280,6 @@ public class ConfigEditor {
     public void updateViewStatus(){
     	((QRConfigActivity)mActivity).updateViewStatus();
     }
+
+	
 }

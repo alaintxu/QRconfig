@@ -31,7 +31,7 @@ public class QRConfigActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         
         configEditor	=	new ConfigEditor(this);
-        buttonListener	=	new ButtonListener(configEditor);
+        buttonListener	=	new ButtonListener(this,configEditor);
         setContentView(R.layout.main);
         
         this.initialisePaging();
@@ -101,7 +101,8 @@ public class QRConfigActivity extends FragmentActivity {
      * @param resultCode	the type of result
      * @param intent	Barcode Scanner Intent
      */
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    @Override
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
                 String contents = intent.getStringExtra("SCAN_RESULT");
@@ -123,21 +124,18 @@ public class QRConfigActivity extends FragmentActivity {
     	Boolean isWifiEnabled	=	configEditor.isWifiEnabled();
     	Boolean isVBEnabled		=	configEditor.isWifiEnabled();
     	int rtVol				=	configEditor.getRTVolume();
-    	int nVol				=	configEditor.getNVolume();
     	int mVol				=	configEditor.getMVolume();
     	
     	Switch btSwitch			=	(Switch) findViewById(R.id.btSwitch);
     	Switch wifiSwitch		=	(Switch) findViewById(R.id.wifiSwitch);
     	Switch vbSwitch			=	(Switch) findViewById(R.id.vbSwitch);
     	SeekBar	rtSeekBar		=	(SeekBar) findViewById(R.id.rtSeekBar);
-    	SeekBar	nSeekBar		=	(SeekBar) findViewById(R.id.nSeekBar);
     	SeekBar	mSeekBar		=	(SeekBar) findViewById(R.id.mSeekBar);
     	
         btSwitch.setChecked(isBTEnabled);
         wifiSwitch.setChecked(isWifiEnabled);
         vbSwitch.setChecked(isVBEnabled);
         rtSeekBar.setProgress(rtVol);
-        nSeekBar.setProgress(nVol);
         mSeekBar.setProgress(mVol);
     }
 

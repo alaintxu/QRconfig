@@ -41,7 +41,6 @@ public class ManualFragment extends Fragment {
         ImageButton volMaxBtn	=	(ImageButton)	qrca.findViewById(R.id.volMaxBtn);
         ImageButton volMuteBtn	=	(ImageButton)	qrca.findViewById(R.id.volMuteBtn);
         SeekBar rtSeekBar		=	(SeekBar)	qrca.findViewById(R.id.rtSeekBar);
-        SeekBar nSeekBar		=	(SeekBar)	qrca.findViewById(R.id.nSeekBar);
         SeekBar mSeekBar		=	(SeekBar)	qrca.findViewById(R.id.mSeekBar);
 
         
@@ -53,11 +52,9 @@ public class ManualFragment extends Fragment {
         volMuteBtn.setOnClickListener(buttonListener);
         
         rtSeekBar.setMax(configEditor.getRTMaxVolume());
-        nSeekBar.setMax(configEditor.getNMaxVolume());
         mSeekBar.setMax(configEditor.getMMaxVolume());
         
         rtSeekBar.setOnSeekBarChangeListener(buttonListener);
-        nSeekBar.setOnSeekBarChangeListener(buttonListener);
         mSeekBar.setOnSeekBarChangeListener(buttonListener);
 	}
 	

@@ -12,7 +12,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 public class ProfileDAO {
-
+	
 	// Database fields
 	private SQLiteDatabase database;
 	private SQLiteHelper dbHelper;
@@ -22,8 +22,7 @@ public class ProfileDAO {
 			SQLiteHelper.COLUMN_WIFI,
 			SQLiteHelper.COLUMN_BLUETOOTH,
 			SQLiteHelper.COLUMN_VIBRATION,
-			SQLiteHelper.COLUMN_V_RINGTONE,
-			SQLiteHelper.COLUMN_V_NOTIFICATION,
+			SQLiteHelper.COLUMN_VOLUME,
 			SQLiteHelper.COLUMN_V_MULTIMEDIA};
 
 	public ProfileDAO(Context context) {
@@ -44,8 +43,7 @@ public class ProfileDAO {
 		values.put(SQLiteHelper.COLUMN_WIFI, profile.getWifi());
 		values.put(SQLiteHelper.COLUMN_BLUETOOTH, profile.getBluetooth());
 		values.put(SQLiteHelper.COLUMN_VIBRATION, profile.getVibration());
-		values.put(SQLiteHelper.COLUMN_V_RINGTONE, profile.getRingtoneVolume());
-		values.put(SQLiteHelper.COLUMN_V_NOTIFICATION, profile.getNotificationVolume());
+		values.put(SQLiteHelper.COLUMN_VOLUME, profile.getVolume());
 		values.put(SQLiteHelper.COLUMN_V_MULTIMEDIA, profile.getMultimediaVolume());
 		long insertId = database.insert(SQLiteHelper.TABLE_PROFILES, null,
 				values);
@@ -62,16 +60,14 @@ public class ProfileDAO {
 								Boolean wifi, 
 								Boolean bluetooth, 
 								Boolean vibration,
-								int toneVolume,
-								int notificationVolume,
+								int volume,
 								int multimediaVolume){
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelper.COLUMN_NAME, name);
 		values.put(SQLiteHelper.COLUMN_WIFI, wifi);
 		values.put(SQLiteHelper.COLUMN_BLUETOOTH, bluetooth);
 		values.put(SQLiteHelper.COLUMN_VIBRATION, vibration);
-		values.put(SQLiteHelper.COLUMN_V_RINGTONE, toneVolume);
-		values.put(SQLiteHelper.COLUMN_V_NOTIFICATION, notificationVolume);
+		values.put(SQLiteHelper.COLUMN_VOLUME, volume);
 		values.put(SQLiteHelper.COLUMN_V_MULTIMEDIA, multimediaVolume);
 		long insertId = database.insert(SQLiteHelper.TABLE_PROFILES, null,
 				values);
@@ -111,6 +107,15 @@ public class ProfileDAO {
 		return profiles;
 	}
 
+	public List<String> getAllProfileNames() {
+		//String[]	profileNames	=	{};
+		List<String>	profileNames=	new ArrayList<String>();
+		List<Profile>	profiles	=	getAllProfiles();
+		for(Profile profile:profiles)
+			profileNames.add(profile.getName());
+		return profileNames;
+	}
+
 	private Profile cursorToProfile(Cursor cursor) {
 		Profile profile = new Profile();
 		profile.setId(cursor.getLong(0));
@@ -118,9 +123,42 @@ public class ProfileDAO {
 		profile.setBluetooth(cursor.getInt(2));
 		profile.setWifi(cursor.getInt(3));
 		profile.setVibration(cursor.getInt(4));
-		profile.setRingtoneVolume(cursor.getInt(5));
-		profile.setNotificationVolume(cursor.getInt(6));
-		profile.setMultimediaVolume(cursor.getInt(7));
+		profile.setVolume(cursor.getInt(5));
+		profile.setMultimediaVolume(cursor.getInt(6));
+		return profile;
+	}
+
+	public Profile loadProfile(String profileName) throws Exception{
+		Profile profile = new Profile();
+		
+		Cursor cursor = database.query(SQLiteHelper.TABLE_PROFILES,
+				allColumns, null, null, null, null, null);
+		cursor.moveToFirst();
+		if (!cursor.isAfterLast()) {
+			profile = cursorToProfile(cursor);
+		}else{
+			Exception e	=	new Exception("Unable to load profile (Profile name="+profileName+")");
+			throw e;
+		}
+		cursor.close();
+			
+		return profile;
+	}
+
+	public Profile loadProfile(int id) throws Exception{
+		Profile profile = new Profile();
+		
+		Cursor cursor = database.query(SQLiteHelper.TABLE_PROFILES,
+				allColumns, null, null, null, null, null);
+		cursor.moveToFirst();
+		if (!cursor.isAfterLast()) {
+			profile = cursorToProfile(cursor);
+		}else{
+			Exception e	=	new Exception("Unable to load profile (id="+id+")");
+			throw e;
+		}
+		cursor.close();
+			
 		return profile;
 	}
 }

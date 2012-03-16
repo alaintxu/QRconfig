@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, QRConfigActivity!</string>
     <string name="app_name">QRConfig</string>
     <string name="bluetooth">Bluetooth</string>
-    <string name="blueOnButtonText">Enable Bluetooth</string>
-    <string name="blueOffButtonText">Disable Bluetooth</string>
     <string name="wifi">WiFi</string>
     <string name="enable">Enable</string>
     <string name="disable">Disable</string>
     <string name="scanQr">Scan QR code</string>
     <string name="wrongQr">Wrong QR code</string>
-    <string name="nothing2change">Nothing has changed</string>
-    <string name="blueOn">Bluetooth has been enabled</string>
-    <string name="blueOff">Bluetooth has been disabled</string>
-    <string name="wifiOn">WiFi has been enabled</string>
-    <string name="wifiOff">WiFi has been disabled</string>
     <string name="help">Help</string>
-    <string name="moreOptions">More options</string>
     <string name="home">Home</string>
     <string name="profileList">Profile List</string>
     <string name="manual">Manual</string>
@@ -32,7 +23,11 @@
     <string name="addProfile">New Profile</string>
     <string name="volMaxAll">Set all volumes to max</string>
     <string name="volMuteAll">Mute all volumes</string>
-    
+    <string name="profile_name">Profile name</string>
+    <string name="enter_profile_name">Enter new profile name</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="list_label">Profile List</string>
     
     <string-array name="page_adapter_pages">
         <item>Manual</item>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nothing2change">Nothing has changed</string>
+    <string name="blueOn">Bluetooth has been enabled</string>
+    <string name="blueOff">Bluetooth has been disabled</string>
+    <string name="wifiOn">WiFi has been enabled</string>
+    <string name="wifiOff">WiFi has been disabled</string>
+</resources>

@@ -1,13 +1,29 @@
 package softwareaskea.qrconfig.profiles;
 
 public class Profile {
+
+	public static final int BLUETOOTH_ON		=	 1;
+	public static final int WIFI_ON				=	 1;
+	public static final int VIBRATION_ON		=	 1;
+	public static final int BLUETOOTH_OFF		=	 0;
+	public static final int WIFI_OFF			=	 0;
+	public static final int VIBRATION_OFF		=	 0;
+	public static final int BLUETOOTH_NOT_SET	=	-1;
+	public static final int WIFI_NOT_SET		=	-1;
+	public static final int VIBRATION_NOT_SET	=	-1;
+	
+	public static final String WIFI_CODE		=	"W";
+	public static final String BLUETOOTH_CODE	=	"BT";
+	public static final String VIBRATION_CODE	=	"VB";
+	public static final String VOLUME_CODE		=	"V";
+	public static final String MULTIMEDIA_CODE	=	"VM";
+	
 	private long 	id;
 	private String	name				=	null;
-	private Boolean	wifi				=	null;	//null means not set or no change
-	private Boolean bluetooth			=	null;	//null means not set or no change
-	private Boolean vibration			=	null;	//null means not set or no change
-	private int		ringtoneVolume		=	-1;		//-1 means not set or no change
-	private int		notificationVolume	=	-1;		//-1 means not set or no change
+	private int		wifi				=	WIFI_NOT_SET;
+	private int		bluetooth			=	BLUETOOTH_NOT_SET;
+	private int		vibration			=	VIBRATION_NOT_SET;
+	private int		volume				=	-1;		//-1 means not set or no change
 	private int		multimediaVolume	=	-1;		//-1 means not set or no change
 	
 	/************  Constructors  ************/
@@ -15,37 +31,33 @@ public class Profile {
 	
 	public Profile(
 			String name,
-			Boolean wifi, 
-			Boolean bluetooth, 
-			Boolean vibration,
-			int toneVolume,
-			int notificationVolume,
+			int wifi, 
+			int bluetooth, 
+			int vibration,
+			int volume,
 			int multimediaVolume){
 		this.setName(name);
 		this.setWifi(wifi);
 		this.setBluetooth(bluetooth);
 		this.setVibration(vibration);
-		this.setRingtoneVolume(toneVolume);
-		this.setNotificationVolume(notificationVolume);
+		this.setVolume(volume);
 		this.setMultimediaVolume(multimediaVolume);
 	}
 	
 	public Profile(
 			long id,
 			String name,
-			Boolean wifi, 
-			Boolean bluetooth, 
-			Boolean vibration,
-			int toneVolume,
-			int notificationVolume,
+			int wifi, 
+			int bluetooth, 
+			int vibration,
+			int volume,
 			int multimediaVolume){
 		this.setId(id);
 		this.setName(name);
 		this.setWifi(wifi);
 		this.setBluetooth(bluetooth);
 		this.setVibration(vibration);
-		this.setRingtoneVolume(toneVolume);
-		this.setNotificationVolume(notificationVolume);
+		this.setVolume(volume);
 		this.setMultimediaVolume(multimediaVolume);
 	}
 
@@ -69,75 +81,39 @@ public class Profile {
 	}
 
 	//Wifi
-	public Boolean getWifi() {
+	public int getWifi() {
 		return wifi;
 	}
 
-	public void setWifi(Boolean wifi) {
+	public void setWifi(int wifi) {
 		this.wifi = wifi;
 	}
 	
-	public void setWifi(int wifi) {
-		if(wifi==1)
-			this.wifi	=	true;
-		else if(wifi==0)
-			this.wifi	=	false;
-		else
-			this.wifi	=	null;
-	}
-	
 	//Bluetooth
-	public Boolean getBluetooth() {
+	public int getBluetooth() {
 		return bluetooth;
 	}
 
-	public void setBluetooth(Boolean bluetooth) {
-		this.bluetooth = bluetooth;
-	}
-	
 	public void setBluetooth(int bluetooth) {
-		if(bluetooth==1)
-			this.bluetooth	=	true;
-		else if(bluetooth==0)
-			this.bluetooth	=	false;
-		else
-			this.bluetooth	=	null;
+		this.bluetooth = bluetooth;
 	}
 
 	//Vibration
-	public Boolean getVibration() {
+	public int getVibration() {
 		return vibration;
 	}
 
-	public void setVibration(Boolean vibration) {
-		this.vibration = vibration;
-	}
-	
 	public void setVibration(int vibration) {
-		if(vibration==1)
-			this.vibration	=	true;
-		else if(vibration==0)
-			this.vibration	=	false;
-		else
-			this.vibration	=	null;
+		this.vibration = vibration;
 	}
 
 	//Ringtone
-	public int getRingtoneVolume() {
-		return ringtoneVolume;
+	public int getVolume() {
+		return volume;
 	}
 
-	public void setRingtoneVolume(int ringtoneVolume) {
-		this.ringtoneVolume = ringtoneVolume;
-	}
-
-	//Notification
-	public int getNotificationVolume() {
-		return notificationVolume;
-	}
-
-	public void setNotificationVolume(int notificationVolume) {
-		this.notificationVolume = notificationVolume;
+	public void setVolume(int ringtoneVolume) {
+		this.volume = ringtoneVolume;
 	}
 
 	//Multimedia
@@ -151,6 +127,7 @@ public class Profile {
 	
 
 	/************  For ListView  ************/
+	@Override
 	public String toString(){
 		return name;
 	}

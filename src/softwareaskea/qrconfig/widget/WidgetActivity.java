@@ -26,7 +26,8 @@ public class WidgetActivity extends Activity {
      * @param resultCode	the type of result
      * @param intent	Barcode Scanner Intent
      */
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    @Override
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
                 String contents = intent.getStringExtra("SCAN_RESULT");
