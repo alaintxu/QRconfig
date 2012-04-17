@@ -22,19 +22,23 @@ public class ProfileDAO {
 			SQLiteHelper.COLUMN_WIFI,
 			SQLiteHelper.COLUMN_BLUETOOTH,
 			SQLiteHelper.COLUMN_VIBRATION,
-			SQLiteHelper.COLUMN_VOLUME,
-			SQLiteHelper.COLUMN_V_MULTIMEDIA};
+			SQLiteHelper.COLUMN_RINGTONE,
+			SQLiteHelper.COLUMN_MULTIMEDIA,
+			SQLiteHelper.COLUMN_ALARM};
 
 	public ProfileDAO(Context context) {
 		dbHelper = new SQLiteHelper(context);
 	}
 
 	public void open() throws SQLException {
-		database = dbHelper.getWritableDatabase();
+		if(database==null) database = dbHelper.getWritableDatabase();
 	}
 
 	public void close() {
-		dbHelper.close();
+		if(database!=null){
+			dbHelper.close();
+			database=null;
+		}
 	}
 	
 	public Profile createProfile(Profile profile){
@@ -43,8 +47,9 @@ public class ProfileDAO {
 		values.put(SQLiteHelper.COLUMN_WIFI, profile.getWifi());
 		values.put(SQLiteHelper.COLUMN_BLUETOOTH, profile.getBluetooth());
 		values.put(SQLiteHelper.COLUMN_VIBRATION, profile.getVibration());
-		values.put(SQLiteHelper.COLUMN_VOLUME, profile.getVolume());
-		values.put(SQLiteHelper.COLUMN_V_MULTIMEDIA, profile.getMultimediaVolume());
+		values.put(SQLiteHelper.COLUMN_RINGTONE, profile.getRingtone());
+		values.put(SQLiteHelper.COLUMN_MULTIMEDIA, profile.getMultimedia());
+		values.put(SQLiteHelper.COLUMN_ALARM, profile.getAlarm());
 		long insertId = database.insert(SQLiteHelper.TABLE_PROFILES, null,
 				values);
 		// To show how to query
@@ -59,16 +64,19 @@ public class ProfileDAO {
 	public Profile createProfile(String name,
 								Boolean wifi, 
 								Boolean bluetooth, 
+								Boolean gps, 
 								Boolean vibration,
-								int volume,
-								int multimediaVolume){
+								int ringtone,
+								int multimedia,
+								int alarm){
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelper.COLUMN_NAME, name);
 		values.put(SQLiteHelper.COLUMN_WIFI, wifi);
 		values.put(SQLiteHelper.COLUMN_BLUETOOTH, bluetooth);
 		values.put(SQLiteHelper.COLUMN_VIBRATION, vibration);
-		values.put(SQLiteHelper.COLUMN_VOLUME, volume);
-		values.put(SQLiteHelper.COLUMN_V_MULTIMEDIA, multimediaVolume);
+		values.put(SQLiteHelper.COLUMN_RINGTONE, ringtone);
+		values.put(SQLiteHelper.COLUMN_MULTIMEDIA, multimedia);
+		values.put(SQLiteHelper.COLUMN_ALARM, alarm);
 		long insertId = database.insert(SQLiteHelper.TABLE_PROFILES, null,
 				values);
 		// To show how to query
@@ -79,15 +87,31 @@ public class ProfileDAO {
 		return cursorToProfile(cursor);
 		
 	}
+
 	
-	public void deleteProfile(Profile profile) {
+	/**
+	 * Delete profile
+	 * @param profile profile to delete
+	 */
+	public int deleteProfile(Profile profile) {
 		long id = profile.getId();
-		database.delete(SQLiteHelper.TABLE_PROFILES, SQLiteHelper.COLUMN_ID
+		return deleteProfile(id);
+	}
+	
+	/**
+	 * Delete profile
+	 * @param id identification of the profile to delete
+	 * @return 
+	 */
+	public int deleteProfile(long id) {
+		open();
+		return database.delete(SQLiteHelper.TABLE_PROFILES, SQLiteHelper.COLUMN_ID
 				+ " = " + id, null);
-		System.out.println("Profile deleted with id: " + id);
 	}
 
 	public List<Profile> getAllProfiles() {
+		open();
+		
 		List<Profile> profiles = new ArrayList<Profile>();
 		try{
 			Cursor cursor = database.query(SQLiteHelper.TABLE_PROFILES,
@@ -108,7 +132,6 @@ public class ProfileDAO {
 	}
 
 	public List<String> getAllProfileNames() {
-		//String[]	profileNames	=	{};
 		List<String>	profileNames=	new ArrayList<String>();
 		List<Profile>	profiles	=	getAllProfiles();
 		for(Profile profile:profiles)
@@ -117,35 +140,54 @@ public class ProfileDAO {
 	}
 
 	private Profile cursorToProfile(Cursor cursor) {
+		int i=0;
 		Profile profile = new Profile();
-		profile.setId(cursor.getLong(0));
-		profile.setName(cursor.getString(1));
-		profile.setBluetooth(cursor.getInt(2));
-		profile.setWifi(cursor.getInt(3));
-		profile.setVibration(cursor.getInt(4));
-		profile.setVolume(cursor.getInt(5));
-		profile.setMultimediaVolume(cursor.getInt(6));
+		
+		profile.setId(cursor.getLong(i));
+		i++;
+		
+		profile.setName(cursor.getString(i));
+		i++;
+		
+		profile.setBluetooth(cursor.getInt(i));
+		i++;
+		
+		profile.setWifi(cursor.getInt(i));
+		i++;
+		
+		profile.setVibration(cursor.getInt(i));
+		i++;
+		
+		profile.setRingtone(cursor.getInt(i));
+		i++;
+		
+		profile.setMultimedia(cursor.getInt(i));
+		i++;
+		
+		profile.setAlarm(cursor.getInt(i));
+		i++;
+		
 		return profile;
 	}
 
-	public Profile loadProfile(String profileName) throws Exception{
+	public Profile loadProfile(String profileName){
+		open();
+		
 		Profile profile = new Profile();
 		
 		Cursor cursor = database.query(SQLiteHelper.TABLE_PROFILES,
 				allColumns, null, null, null, null, null);
 		cursor.moveToFirst();
-		if (!cursor.isAfterLast()) {
+		if (!cursor.isAfterLast())
 			profile = cursorToProfile(cursor);
-		}else{
-			Exception e	=	new Exception("Unable to load profile (Profile name="+profileName+")");
-			throw e;
-		}
 		cursor.close();
 			
 		return profile;
 	}
 
 	public Profile loadProfile(int id) throws Exception{
+		open();
+		
 		Profile profile = new Profile();
 		
 		Cursor cursor = database.query(SQLiteHelper.TABLE_PROFILES,

@@ -1,161 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/scrollView1"
+        android:id="@+id/scroll_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
 	    android:orientation="vertical">
-	    <LinearLayout
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	    	android:orientation="vertical"
-	        android:paddingRight="14dp">
-						
+
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
+    	<!-- WIFI -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/wifiCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/wifi" />
+
+            <Switch
+                android:id="@+id/wifiSwitch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+        
+        <!-- Bluetooth -->
+
 	        <LinearLayout
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
-	    		android:orientation="horizontal">
-
+	            android:gravity="center"
+	            android:orientation="horizontal" >
+
 	            <CheckBox
 	                android:id="@+id/btCheckBox"
-	                android:layout_width="wrap_content"
+	                android:layout_width="0dp"
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="left"
+	                android:layout_weight="1"
 	                android:text="@string/bluetooth" />
-
-				<Switch
-				    android:id="@+id/btSwitch"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:layout_gravity="center_vertical"
-				    android:layout_margin="7dp" />
-
-			</LinearLayout>
-	        <LinearLayout
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	    		android:orientation="horizontal">
-
-	            <CheckBox
-	                android:id="@+id/wifiCheckBox"
-	                android:layout_width="wrap_content"
+
+	            <Switch
+	                android:id="@+id/btSwitch"
+	                android:layout_width="0dp"
 	                android:layout_height="wrap_content"
-			        android:text="@string/wifi"/>
-
-			  	<Switch
-			  	    android:id="@+id/wifiSwitch"
-			  	    android:layout_width="wrap_content"
-			  	    android:layout_height="wrap_content"
-			  	    android:layout_gravity="center"
-			  	    android:layout_margin="7dp" />
+	                android:layout_gravity="center_vertical"
+	                android:layout_margin="7dp"
+	                android:layout_weight="1" />
 
-			</LinearLayout>
+	        </LinearLayout>
 			
-		    <TableLayout
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:stretchColumns="1"
-		        android:paddingRight="14dp">
-		
-		        <TableRow
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content">
-		 
-				    <TextView
-				        android:layout_width="wrap_content"
-				        android:layout_height="wrap_content"
-				        android:text="@string/volumes"
-				        android:textAppearance="?android:attr/textAppearanceMedium"
-				        android:layout_margin="7dp"/>
-	
-					<LinearLayout
-					    android:layout_width="fill_parent"
-					    android:layout_height="wrap_content"
-					    android:layout_gravity="right"
-					    android:orientation="horizontal"
-					    android:paddingRight="12dp">
-	
-					    <ImageButton
-					        android:id="@+id/volMuteBtn"
-					        android:layout_width="wrap_content"
-					        android:layout_height="wrap_content"
-					        android:src="@drawable/ic_audio_vol_mute"
-					        android:contentDescription="@string/volMuteAll"/>
-					    <ImageButton
-					        android:id="@+id/volMaxBtn"
-					        android:layout_width="wrap_content"
-					        android:layout_height="wrap_content"
-					        android:src="@drawable/ic_audio_vol"
-					        android:contentDescription="@string/volMaxAll"/>
-				    
-			    	</LinearLayout>
-				</TableRow>
-		        <TableRow
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content" 
-		        	android:layout_margin="7dp">
-					
-
-		            <CheckBox
-		                android:id="@+id/vCheckBox"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:text="@string/rVolume" />
-		            <SeekBar
-		                android:id="@+id/rtSeekBar"
-		                android:layout_width="fill_parent"
-		                android:layout_height="wrap_content"/>
-		
-		        </TableRow>
-		
-		        <TableRow
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		        	android:layout_margin="7dp">
-							
-
-		            <CheckBox
-		                android:id="@+id/mvCheckBox"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:text="@string/mVolume" />
-		            <SeekBar
-		                android:id="@+id/mSeekBar"
-		                android:layout_width="fill_parent"
-		                android:layout_height="wrap_content" />
-		        </TableRow>
-		    </TableLayout>
+	        <!-- Vibration -->
 	        <LinearLayout
 	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	    		android:orientation="horizontal">
+	            android:layout_height="0dp"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:orientation="horizontal" >
+
 	            <CheckBox
 	                android:id="@+id/vbCheckBox"
-	                android:layout_width="wrap_content"
+	                android:layout_width="0dp"
 	                android:layout_height="wrap_content"
-			        android:text="@string/vibration"/>
-
-			    <Switch
-			        android:id="@+id/vbSwitch"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_gravity="center"
-			        android:layout_margin="7dp" />
+	                android:layout_weight="1"
+	                android:text="@string/vibration" />
 
-			</LinearLayout>
-
+	            <Switch
+	                android:id="@+id/vbSwitch"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center"
+	                android:layout_margin="7dp"
+	                android:layout_weight="1" />
+	        </LinearLayout>
+
+	        <TableLayout
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingRight="14dp"
+	            android:stretchColumns="1" >
+
+	            <TableRow
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content" >
+
+	                <TextView
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_margin="7dp"
+	                    android:text="@string/volumes"
+	                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	                <LinearLayout
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="right"
+	                    android:orientation="horizontal"
+	                    android:paddingRight="12dp" >
+
+	                    <ImageButton
+	                        android:id="@+id/volMuteBtn"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:contentDescription="@string/vol_mute_all"
+	                        android:src="@drawable/ic_audio_vol_mute" />
+
+	                    <ImageButton
+	                        android:id="@+id/volMaxBtn"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:contentDescription="@string/vol_max_all"
+	                        android:src="@drawable/ic_audio_vol" />
+	                </LinearLayout>
+	            </TableRow>
+
+	            <TableRow
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="7dp" >
+
+	                <CheckBox
+	                    android:id="@+id/mCheckBox"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="@string/multimedia" />
+
+	                <SeekBar
+	                    android:id="@+id/mSeekBar"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:enabled="false" />
+	            </TableRow>
+
+	            <TableRow
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="7dp" >
+
+	                <CheckBox
+	                    android:id="@+id/rtCheckBox"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="@string/ringtone" />
+
+	                <SeekBar
+	                    android:id="@+id/rtSeekBar"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content" />
+	            </TableRow>
+
+	            <TableRow
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="7dp" >
+
+	                <CheckBox
+	                    android:id="@+id/alCheckBox"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="@string/alarm" />
+
+	                <SeekBar
+	                    android:id="@+id/alSeekBar"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content" />
+	            </TableRow>
+	        </TableLayout>
+
 	        <LinearLayout
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_gravity="center"
 	            android:orientation="vertical" >
-
-			    <Button
-			        android:id="@+id/saveAsProfile"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_gravity="center"
-			        android:text="@string/saveAsProfile" />
 
-			</LinearLayout>>		</LinearLayout>
+	            <Button
+	                android:id="@+id/saveAsProfile"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center"
+	                android:text="@string/save_as_profile" />
+	        </LinearLayout>		
+	    </LinearLayout>
 
 </ScrollView>

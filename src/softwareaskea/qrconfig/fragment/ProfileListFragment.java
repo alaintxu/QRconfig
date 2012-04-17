@@ -1,43 +1,54 @@
 package softwareaskea.qrconfig.fragment;
 
-import softwareaskea.qrconfig.ConfigEditor;
-import softwareaskea.qrconfig.QRConfigActivity;
+import java.util.ArrayList;
+
 import softwareaskea.qrconfig.R;
+import softwareaskea.qrconfig.db.ProfileDAO;
+import softwareaskea.qrconfig.listener.ProfileListListener;
+import softwareaskea.qrconfig.profiles.Profile;
+import softwareaskea.qrconfig.profiles.ProfileItemAdapter;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
+import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class ProfileListFragment extends Fragment {
-	private	QRConfigActivity	qrca		=	null;
-	//private	ButtonListener	buttonListener	=	null;
-	
+	private ProfileItemAdapter	mAdapter		=	null;
+	private ProfileDAO			profileDAO		=	null;
+	private ProfileListListener	listener;
+
+    
+    /******* Overrides *******/
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		Log.e("Test","PresetsFragment created");
 	}
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
+		Activity	activity	=	this.getActivity();
 		
-        qrca							=	(QRConfigActivity) this.getActivity();
-        ConfigEditor	configEditor	=	qrca.getConfigEditor();
-        ListView 		listView 		= (ListView) qrca.findViewById(R.id.profileList);
-        //buttonListener	=	qrca.getButtonListener();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-        		qrca,
-        		android.R.layout.simple_list_item_1,
-        		android.R.id.text1,
-        		configEditor.getProfileListStr()
+		profileDAO						=	new ProfileDAO(activity);
+		
+        ListView 		listView 		=	(ListView) activity.findViewById(R.id.profile_list);
+        ArrayList<Profile>	profiles	=	(ArrayList<Profile>) profileDAO.getAllProfiles();
+        mAdapter							=	new ProfileItemAdapter(
+        		this.getActivity().getApplicationContext(),
+        		R.layout.profile_list_item,
+        		profiles
         );
-        listView.setAdapter(adapter);
+		listener	=	new ProfileListListener(activity,mAdapter);
+        listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(listener);
+        registerForContextMenu(listView);
 	}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,23 +61,27 @@ public class ProfileListFragment extends Fragment {
     @Override
     public void onResume(){
     	super.onResume();
-    	qrca.updateViewStatus();
-    	//updateProfileList();
+    	listener.updateProfileList();
     }
     
-    /*public void updateProfileList(){
-    	Context 		context			=	qrca.getApplicationContext();
-    	ConfigEditor	configEditor	=	qrca.getConfigEditor();
-
-    	try{
-        	List<Profile>	profiles	=	configEditor.getProfileList();
-        	ArrayAdapter<Profile>	adapter		=	new ArrayAdapter<Profile>(context, 0, profiles);
-        	adapter	=	new ArrayAdapter<Profile>(this,android.R.layout.simple_list_item_1,R.id.profileList, profiles);
-        	ListView		lv			=	(ListView) qrca.findViewById(R.id.profileList);
-        	
-    		lv.setAdapter(adapter);
-    	}catch(Exception e){
-    		Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-    	}
-    }*/
+    @Override
+    public void onPause(){
+    	super.onPause();
+    	profileDAO.close();
+    }
+    
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getActivity().getMenuInflater();
+        if(v.getId()==R.id.profile_list){
+        	inflater.inflate(R.menu.context_menu, menu);
+        }
+    }
+    
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+    	return listener.onContextItemSelected(item);
+    }
 }

@@ -17,7 +17,7 @@ public class WidgetActivity extends Activity {
 	
 	@Override
 	public void onStart(){
-        configEditor.scanQrCode();
+        //configEditor.scanQrCode();
 	}
     
     /**
@@ -32,8 +32,10 @@ public class WidgetActivity extends Activity {
             if (resultCode == RESULT_OK) {
                 String contents = intent.getStringExtra("SCAN_RESULT");
                 String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-                if(format.equals("QR_CODE"))
-                	configEditor.processQr(contents);
+                int x;
+				if(format.equals("QR_CODE"))
+                	x=5;
+                	//configEditor.processQr(contents);
             } else if (resultCode == RESULT_CANCELED) {
                 // Handle cancel
             }

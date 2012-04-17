@@ -1,97 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scroll_view_prof"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+	    android:orientation="vertical">
     
-    <EditText
-        android:id="@+id/profName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/profName" >
-
-        <requestFocus />
-    </EditText>
-
-	<Switch
-        android:id="@+id/btSwitchProf"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="@string/bluetooth" />
+        android:gravity="center"
+        android:orientation="vertical" >
+        
+	    <EditText
+	        android:id="@+id/nameProf"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/profile_name" >
+	
+	        <requestFocus />
+	    </EditText>
 
-  	<Switch
-       	android:id="@+id/wifiSwitchProf"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="@string/wifi" />
- 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/volumes"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-    <TableLayout
-        android:id="@+id/tableLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+    	<!-- WIFI -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
 
-        <TableRow
-            android:id="@+id/profRowRT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:layout_width="wrap_content"
+            <CheckBox
+                android:id="@+id/wifiCheckBoxProf"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/rVolume" />
+                android:layout_weight="1"
+                android:text="@string/wifi" />
 
-            <SeekBar
-                android:id="@+id/rSeekBarProf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <Switch
+                android:id="@+id/wifiSwitchProf"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+        
+        <!-- Bluetooth -->
 
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/profRowN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-	        <TextView
-	            android:layout_width="wrap_content"
+	        <LinearLayout
+	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
-	            android:text="@string/nVolume" />
-	
-	        <SeekBar
-	            android:id="@+id/nSeekBarProf"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" />
-        </TableRow>
+	            android:gravity="center"
+	            android:orientation="horizontal" >
 
-        <TableRow
-            android:id="@+id/profRowM"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+	            <CheckBox
+	                android:id="@+id/btCheckBoxProf"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="left"
+	                android:layout_weight="1"
+	                android:text="@string/bluetooth" />
 
-	        <TextView
-	            android:layout_width="wrap_content"
+
+
+	            <Switch
+	                android:id="@+id/btSwitchProf"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:layout_margin="7dp"
+	                android:layout_weight="1" />
+
+	        </LinearLayout>
+			
+	        <!-- Vibration -->
+	        <LinearLayout
+	            android:layout_width="fill_parent"
+	            android:layout_height="0dp"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:orientation="horizontal" >
+
+	            <CheckBox
+	                android:id="@+id/vbCheckBoxProf"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:text="@string/vibration" />
+
+	            <Switch
+	                android:id="@+id/vbSwitchProf"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center"
+	                android:layout_margin="7dp"
+	                android:layout_weight="1" />
+	        </LinearLayout>
+
+	        <TableLayout
+	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
-	            android:text="@string/mVolume" />
-	
-	        <SeekBar
-	            android:id="@+id/mSeekBarProf"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" />
-        </TableRow>
+	            android:paddingRight="14dp"
+	            android:stretchColumns="1" >
 
-    </TableLayout>
-    <Switch
-        android:id="@+id/vbSwitchProf"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/vibration" />
+	            <TableRow
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content" >
 
-</LinearLayout>
+	                <TextView
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_margin="7dp"
+	                    android:text="@string/volumes"
+	                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	                <LinearLayout
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="right"
+	                    android:orientation="horizontal"
+	                    android:paddingRight="12dp" >
+
+	                    <ImageButton
+	                        android:id="@+id/volMuteBtnProf"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:contentDescription="@string/vol_mute_all"
+	                        android:src="@drawable/ic_audio_vol_mute" />
+
+	                    <ImageButton
+	                        android:id="@+id/volMaxBtnProf"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:contentDescription="@string/vol_max_all"
+	                        android:src="@drawable/ic_audio_vol" />
+	                </LinearLayout>
+	            </TableRow>
+
+	            <TableRow
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="7dp" >
+
+	                <CheckBox
+	                    android:id="@+id/mCheckBoxProf"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="@string/multimedia" />
+
+	                <SeekBar
+	                    android:id="@+id/mSeekBarProf"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:enabled="false" />
+	            </TableRow>
+
+	            <TableRow
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="7dp" >
+
+	                <CheckBox
+	                    android:id="@+id/rtCheckBoxProf"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="@string/ringtone" />
+
+	                <SeekBar
+	                    android:id="@+id/rtSeekBarProf"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content" />
+	            </TableRow>
+
+	            <TableRow
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="7dp" >
+
+	                <CheckBox
+	                    android:id="@+id/alCheckBoxProf"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="@string/alarm" />
+
+	                <SeekBar
+	                    android:id="@+id/alSeekBarProf"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content" />
+	            </TableRow>
+	        </TableLayout>
+
+	        <LinearLayout
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+	            android:orientation="vertical" >
+
+	            <Button
+	                android:id="@+id/saveAsProfileProf"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center"
+	                android:text="@string/save_as_profile" />
+	        </LinearLayout>
+		
+
+	    </LinearLayout>
+
+</ScrollView>

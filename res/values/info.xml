@@ -5,4 +5,9 @@
     <string name="blueOff">Bluetooth has been disabled</string>
     <string name="wifiOn">WiFi has been enabled</string>
     <string name="wifiOff">WiFi has been disabled</string>
+    <string name="profile_deleted">Profile has been deleted</string>
+    <string name="scan_qr_canceled">Scan canceled</string>
+    <string name="profile_apply_title">Apply profile</string>
+    <string name="profile_apply_message">Do you want to apply this profile configuration?</string>
+    <string name="profile_applied">Profile apllied</string>
 </resources>

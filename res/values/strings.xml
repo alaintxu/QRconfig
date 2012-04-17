@@ -2,36 +2,45 @@
 <resources>
 
     <string name="app_name">QRConfig</string>
-    <string name="bluetooth">Bluetooth</string>
+    
     <string name="wifi">WiFi</string>
-    <string name="enable">Enable</string>
-    <string name="disable">Disable</string>
-    <string name="scanQr">Scan QR code</string>
-    <string name="wrongQr">Wrong QR code</string>
-    <string name="help">Help</string>
-    <string name="home">Home</string>
-    <string name="profileList">Profile List</string>
-    <string name="manual">Manual</string>
-    <string name="exit">Exit</string>
-    <string name="rVolume">Ringtone</string>
-    <string name="nVolume">Notification</string>
-    <string name="mVolume">Multimedia</string>
-    <string name="volumes">Volumes</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="gps">GPS</string>
     <string name="vibration">Vibration</string>
-    <string name="saveAsProfile">Save as profile</string>
-    <string name="profName">Profile Name</string>
-    <string name="addProfile">New Profile</string>
-    <string name="volMaxAll">Set all volumes to max</string>
-    <string name="volMuteAll">Mute all volumes</string>
+    <string name="volumes">Volumes</string>
+    <string name="vol_max_all">Set all volumes to max</string>
+    <string name="vol_mute_all">Mute all volumes</string>
+    <string name="multimedia">Multimedia</string>
+    <string name="ringtone">Ringtone</string>
+    <string name="alarm">Alarm</string>
+    
+    <string name="scan_qr">Scan QR code</string>
+    <string name="wrong_qr">Wrong QR code</string>
+    <string name="get_qr_config">Get QR (configuration)</string>
+    <string name="get_qr_profile">Get QR (profile)</string>
+    
+    <string name="profile_list">Profile List</string>
+    <string name="save_as_profile">Save as profile</string>
+    <string name="new_profile">New Profile</string>
     <string name="profile_name">Profile name</string>
     <string name="enter_profile_name">Enter new profile name</string>
-    <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
     <string name="list_label">Profile List</string>
     
+    <string name="new_">New</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+    <string name="apply">Apply</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="exit">Exit</string>
+    <string name="help">Help</string>
+    <string name="home">Home</string>
+    
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    
     <string-array name="page_adapter_pages">
-        <item>Manual</item>
-        <item>Home</item>
+        <item>Current config.</item>
         <item>Profile List</item>
     </string-array>
     

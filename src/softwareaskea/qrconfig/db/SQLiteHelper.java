@@ -13,8 +13,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_WIFI = "wifi";
 	public static final String COLUMN_BLUETOOTH = "bluetooth";
 	public static final String COLUMN_VIBRATION = "vibration";
-	public static final String COLUMN_VOLUME = "ringtoneVolume";
-	public static final String COLUMN_V_MULTIMEDIA = "multimediaVolume";
+	public static final String COLUMN_RINGTONE = "ringtone";
+	public static final String COLUMN_MULTIMEDIA = "multimedia";
+	public static final String COLUMN_ALARM = "alarm";
 
 	private static final String DATABASE_NAME = "qrconfig_profile.db";
 	private static final int DATABASE_VERSION = 1;
@@ -27,8 +28,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 				COLUMN_WIFI 			+ " integer, " +
 				COLUMN_BLUETOOTH 		+ " integer, " +
 				COLUMN_VIBRATION 		+ " integer, " +
-				COLUMN_VOLUME 		+ " integer, " +
-				COLUMN_V_MULTIMEDIA 	+ " integer" +
+				COLUMN_RINGTONE 		+ " integer, " +
+				COLUMN_MULTIMEDIA 		+ " integer, " +
+				COLUMN_ALARM	 		+ " integer" +
 				");";
 	
     public SQLiteHelper(Context context) {

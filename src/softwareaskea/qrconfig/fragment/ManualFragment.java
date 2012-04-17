@@ -1,10 +1,10 @@
 package softwareaskea.qrconfig.fragment;
 
 import softwareaskea.qrconfig.ConfigEditor;
-import softwareaskea.qrconfig.QRConfigActivity;
 import softwareaskea.qrconfig.R;
-import softwareaskea.qrconfig.listener.ButtonListener;
+import softwareaskea.qrconfig.listener.ManualListener;
 import android.support.v4.app.Fragment;
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +16,8 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 
 public class ManualFragment extends Fragment {
-	private	QRConfigActivity	qrca;
-	private	ButtonListener		buttonListener;
-	private ConfigEditor		configEditor;
+	private	ManualListener		listener;
+	//private ConfigEditor		mConfigEditor;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -30,32 +29,40 @@ public class ManualFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
 		
-        qrca			=	(QRConfigActivity) this.getActivity();
-        buttonListener	=	qrca.getButtonListener();
-        configEditor	=	qrca.getConfigEditor();
+		Activity		activity		=	this.getActivity();
+		ConfigEditor	mConfigEditor	=	new ConfigEditor(activity);
+        listener						=	new ManualListener(this.getActivity());
         
-        Switch btSwitch			=	(Switch)	qrca.findViewById(R.id.btSwitch);
-        Switch wifiSwitch		=	(Switch)	qrca.findViewById(R.id.wifiSwitch);
-        Switch vbSwitch			=	(Switch)	qrca.findViewById(R.id.wifiSwitch);
-        Button saveAsProfile	=	(Button)	qrca.findViewById(R.id.saveAsProfile);
-        ImageButton volMaxBtn	=	(ImageButton)	qrca.findViewById(R.id.volMaxBtn);
-        ImageButton volMuteBtn	=	(ImageButton)	qrca.findViewById(R.id.volMuteBtn);
-        SeekBar rtSeekBar		=	(SeekBar)	qrca.findViewById(R.id.rtSeekBar);
-        SeekBar mSeekBar		=	(SeekBar)	qrca.findViewById(R.id.mSeekBar);
+        //Switches
+        Switch btSwitch			=	(Switch)		activity.findViewById(R.id.btSwitch);
+        Switch wifiSwitch		=	(Switch)		activity.findViewById(R.id.wifiSwitch);
+        Switch vbSwitch			=	(Switch)		activity.findViewById(R.id.vbSwitch);
+        
+        btSwitch.setOnClickListener(listener);
+        wifiSwitch.setOnClickListener(listener);
+        vbSwitch.setOnClickListener(listener);
+        
+        //SeekBars
+        SeekBar mSeekBar		=	(SeekBar)		activity.findViewById(R.id.mSeekBar);
+        SeekBar rtSeekBar		=	(SeekBar)		activity.findViewById(R.id.rtSeekBar);
+        SeekBar alSeekBar		=	(SeekBar)		activity.findViewById(R.id.alSeekBar);
 
+        mSeekBar.setMax(mConfigEditor.getMMaxVolume());
+        rtSeekBar.setMax(mConfigEditor.getRTMaxVolume());
+        alSeekBar.setMax(mConfigEditor.getAlMaxVolume());
+
+        mSeekBar.setOnSeekBarChangeListener(listener);
+        rtSeekBar.setOnSeekBarChangeListener(listener);
+        alSeekBar.setOnSeekBarChangeListener(listener);
         
-        btSwitch.setOnClickListener(buttonListener);
-        wifiSwitch.setOnClickListener(buttonListener);
-        vbSwitch.setOnClickListener(buttonListener);
-        saveAsProfile.setOnClickListener(buttonListener);
-        volMaxBtn.setOnClickListener(buttonListener);
-        volMuteBtn.setOnClickListener(buttonListener);
-        
-        rtSeekBar.setMax(configEditor.getRTMaxVolume());
-        mSeekBar.setMax(configEditor.getMMaxVolume());
-        
-        rtSeekBar.setOnSeekBarChangeListener(buttonListener);
-        mSeekBar.setOnSeekBarChangeListener(buttonListener);
+        //Buttons
+        Button saveAsProfile	=	(Button)		activity.findViewById(R.id.saveAsProfile);
+        ImageButton volMaxBtn	=	(ImageButton)	activity.findViewById(R.id.volMaxBtn);
+        ImageButton volMuteBtn	=	(ImageButton)	activity.findViewById(R.id.volMuteBtn);
+
+        saveAsProfile.setOnClickListener(listener);
+        volMaxBtn.setOnClickListener(listener);
+        volMuteBtn.setOnClickListener(listener);
 	}
 	
     @Override
@@ -68,6 +75,6 @@ public class ManualFragment extends Fragment {
     @Override
     public void onResume(){
     	super.onResume();
-    	qrca.updateViewStatus();
+    	listener.updateManualViewStatus();
     }
 }

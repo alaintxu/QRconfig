@@ -4,9 +4,11 @@ package softwareaskea.qrconfig;
 import java.util.List;
 import java.util.Vector;
 
+import softwareaskea.qrconfig.db.ProfileDAO;
 import softwareaskea.qrconfig.fragment.*;
-import softwareaskea.qrconfig.listener.*;
+import softwareaskea.qrconfig.profiles.Profile;
 import android.support.v4.app.Fragment;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,23 +17,21 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.Toast;
 
 public class QRConfigActivity extends FragmentActivity {
-	private ConfigEditor	configEditor;
-	private ButtonListener	buttonListener;
+	private ConfigEditor	mConfigEditor;
 	private PagerAdapter	mPagerAdapter;
-	private ViewPager		pager;
+	private ViewPager		mPager;
+	private ProfileDAO		mProfileDAO;
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        configEditor	=	new ConfigEditor(this);
-        buttonListener	=	new ButtonListener(this,configEditor);
+        mConfigEditor	=	new ConfigEditor(this);
+        mProfileDAO		=	new ProfileDAO(this);
         setContentView(R.layout.main);
         
         this.initialisePaging();
@@ -40,15 +40,14 @@ public class QRConfigActivity extends FragmentActivity {
     private void initialisePaging() {
     	List<Fragment>	fragments	=	new	Vector<Fragment>();
     	fragments.add(Fragment.instantiate(this, ManualFragment.class.getName()));
-    	fragments.add(Fragment.instantiate(this, HomeFragment.class.getName()));
     	fragments.add(Fragment.instantiate(this, ProfileListFragment.class.getName()));
     	
     	mPagerAdapter	=	new	QRConfigPagerAdapter(super.getSupportFragmentManager(),fragments,getResources().getStringArray(R.array.page_adapter_pages));
     	
-    	pager	=	(ViewPager)super.findViewById(R.id.viewpager);
+    	mPager	=	(ViewPager)super.findViewById(R.id.viewpager);
     	
-    	pager.setAdapter(this.mPagerAdapter);
-    	pager.setCurrentItem(1);
+    	mPager.setAdapter(this.mPagerAdapter);
+    	mPager.setCurrentItem(1);
 	}
 
 	@Override
@@ -70,7 +69,7 @@ public class QRConfigActivity extends FragmentActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.scanQr:
-                configEditor.scanQrCode();
+                scanQrCode();
                 return true;
             case R.id.exit:
             	quit();
@@ -85,86 +84,72 @@ public class QRConfigActivity extends FragmentActivity {
     
     @Override
     public void onResume(){
-    	configEditor.resume();
     	super.onResume();
     }
 
 	@Override
 	protected void onPause() {
-		configEditor.pause();
+		mProfileDAO.close();
 		super.onPause();
 	}
     
+	/*********************  QR Code  *********************/
+	public void scanQrCode(){
+        Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+        intent.setPackage("com.google.zxing.client.android");
+        intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+        this.startActivityForResult(intent, 0);
+    }
+	
     /**
      * Manage result of QR code scan
      * @param requestCode	0 if there is any result
      * @param resultCode	the type of result
      * @param intent	Barcode Scanner Intent
      */
-    @Override
-	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK) {
                 String contents = intent.getStringExtra("SCAN_RESULT");
                 String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-                if(format.equals("QR_CODE"))
-                	configEditor.processQr(contents);
-            } else if (resultCode == RESULT_CANCELED) {
-                // Handle cancel
+                if(format.equals("QR_CODE")){
+                	Profile profile	=	QRFunctions.getQRProfile(contents, mProfileDAO);
+                	mConfigEditor.applyProfile(profile);
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(getApplicationContext(), R.string.scan_qr_canceled, Toast.LENGTH_SHORT).show();
             }
         }
     }
+    
+    /*********************  Profile  *********************/
+    
+	/**
+	 * Loads profile from database and sets current status to match profile
+	 * @param profileName	name of the profile to load
+	 * @return returns if there was an error (-1) or not (1)
+	 */
+    public int processProfile(String profileName) {
+    	try{
+    		Profile profile	=	mProfileDAO.loadProfile(profileName);
+    		mConfigEditor.applyProfile(profile);
+    		return 1;
+    	}catch(Exception e){
+    		return -1;
+    	}
+	}
     
     public void quit(){
     	this.finish();
     }
     
-    public void updateViewStatus(){
-    	Boolean	isBTEnabled		=	configEditor.isBTEnabled();
-    	Boolean isWifiEnabled	=	configEditor.isWifiEnabled();
-    	Boolean isVBEnabled		=	configEditor.isWifiEnabled();
-    	int rtVol				=	configEditor.getRTVolume();
-    	int mVol				=	configEditor.getMVolume();
-    	
-    	Switch btSwitch			=	(Switch) findViewById(R.id.btSwitch);
-    	Switch wifiSwitch		=	(Switch) findViewById(R.id.wifiSwitch);
-    	Switch vbSwitch			=	(Switch) findViewById(R.id.vbSwitch);
-    	SeekBar	rtSeekBar		=	(SeekBar) findViewById(R.id.rtSeekBar);
-    	SeekBar	mSeekBar		=	(SeekBar) findViewById(R.id.mSeekBar);
-    	
-        btSwitch.setChecked(isBTEnabled);
-        wifiSwitch.setChecked(isWifiEnabled);
-        vbSwitch.setChecked(isVBEnabled);
-        rtSeekBar.setProgress(rtVol);
-        mSeekBar.setProgress(mVol);
-    }
-
-	
-	public void updateProfileList(){
-    	try{
-        	/*List<Profile>	profiles	=	configEditor.getProfileList();
-        	
-        	ArrayAdapter<Profile>	adapter		=	new ArrayAdapter<Profile>(getApplicationContext(), 0, profiles);
-        	
-        	ListView		lv			=	(ListView) findViewById(R.id.profileList);
-        	
-    		lv.setAdapter(adapter);*/
-    	}catch(Exception e){
-    		Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-    	}
-	}
-    
     /**************  Getters  **************/
-    public ConfigEditor getConfigEditor(){
-    	return this.configEditor;
+    public ProfileDAO getProfileDAO(){
+    	return mProfileDAO;
     }
-
-	public ButtonListener getButtonListener() {
-		return buttonListener;
-	}
 
 	public void setFragment(int item) {
-		pager.setCurrentItem(item, true);
+		mPager.setCurrentItem(item, true);
 	}
 
 }
